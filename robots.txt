@@ -1,0 +1,6 @@
+# robots.txt for sigmap.tech
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://sigmap.tech/sitemap.xml
