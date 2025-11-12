@@ -106,13 +106,117 @@
     <section id="contact">
         <h2>Contact Us</h2>
         <p>If you have any questions or need assistance, feel free to contact us:</p>
-        <p>Email: <a href="mailto:info@sigmap.tech">info@sigmap.tech</a></p>
-        <p>Phone: <a href="tel:+358407790767">+358 40779 0767</a></p>
-        <p>Address: SigMap OÜ, Idapõllu tee 3-21, 74001, Haabneeme alevik, Viimsi vald, Harju maakond, Estonia</p>
+
+        <!-- Contact Form -->
+        <!-- TODO: Replace 'YOUR_FORM_ID' with your actual Formspree form ID -->
+        <!-- Sign up at https://formspree.io to get your form endpoint -->
+        <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contact-form" class="contact-form">
+            <div class="form-group">
+                <label for="name">Name *</label>
+                <input type="text" id="name" name="name" required aria-required="true">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required aria-required="true">
+            </div>
+
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject">
+            </div>
+
+            <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+            </div>
+
+            <!-- Honeypot field - hidden from real users, catches bots -->
+            <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+            <button type="submit" id="submit-btn" class="submit-btn">Send Message</button>
+            <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
+        </form>
+
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <p><strong>Direct Contact:</strong></p>
+            <p>Email: <a href="mailto:info@sigmap.tech">info@sigmap.tech</a></p>
+            <p>Phone: <a href="tel:+358407790767">+358 40779 0767</a></p>
+            <p>Address: SigMap OÜ, Idapõllu tee 3-21, 74001, Haabneeme alevik, Viimsi vald, Harju maakond, Estonia</p>
+        </div>
     </section>
 </main>
 <footer role="contentinfo">
     <p>&copy; 2025 SigMap OÜ - All Rights Reserved | <a href="/2048/privacy-policy.html">Privacy Policy</a></p>
 </footer>
+
+<!-- Contact Form Script -->
+<script>
+(function() {
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const formStatus = document.getElementById('form-status');
+    const COOLDOWN_TIME = 60000; // 60 seconds between submissions
+
+    // Check if user is in cooldown period
+    function isInCooldown() {
+        const lastSubmit = localStorage.getItem('lastFormSubmit');
+        if (!lastSubmit) return false;
+        const timeSince = Date.now() - parseInt(lastSubmit);
+        return timeSince < COOLDOWN_TIME;
+    }
+
+    // Get remaining cooldown time
+    function getRemainingCooldown() {
+        const lastSubmit = localStorage.getItem('lastFormSubmit');
+        if (!lastSubmit) return 0;
+        const timeSince = Date.now() - parseInt(lastSubmit);
+        return Math.ceil((COOLDOWN_TIME - timeSince) / 1000);
+    }
+
+    // Check cooldown on page load
+    if (isInCooldown()) {
+        const remaining = getRemainingCooldown();
+        submitBtn.disabled = true;
+        formStatus.textContent = `Please wait ${remaining} seconds before submitting again.`;
+        formStatus.className = 'form-status info';
+
+        // Re-enable after cooldown
+        setTimeout(() => {
+            submitBtn.disabled = false;
+            formStatus.textContent = '';
+            formStatus.className = 'form-status';
+        }, remaining * 1000);
+    }
+
+    form.addEventListener('submit', function(e) {
+        // Check cooldown
+        if (isInCooldown()) {
+            e.preventDefault();
+            const remaining = getRemainingCooldown();
+            formStatus.textContent = `Please wait ${remaining} seconds before submitting again.`;
+            formStatus.className = 'form-status error';
+            return;
+        }
+
+        // Set cooldown
+        localStorage.setItem('lastFormSubmit', Date.now().toString());
+
+        // Disable button and show loading state
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        formStatus.textContent = 'Sending your message...';
+        formStatus.className = 'form-status info';
+
+        // Note: Form will submit naturally to Formspree
+        // Re-enable after cooldown period
+        setTimeout(() => {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Send Message';
+        }, COOLDOWN_TIME);
+    });
+})();
+</script>
 </body>
 </html>
