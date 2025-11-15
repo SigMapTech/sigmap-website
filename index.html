@@ -159,18 +159,27 @@
 
     // Check if user is in cooldown period
     function isInCooldown() {
-        const lastSubmit = localStorage.getItem('lastFormSubmit');
-        if (!lastSubmit) return false;
-        const timeSince = Date.now() - parseInt(lastSubmit);
-        return timeSince < COOLDOWN_TIME;
+        try {
+            const lastSubmit = localStorage.getItem('lastFormSubmit');
+            if (!lastSubmit) return false;
+            const timeSince = Date.now() - parseInt(lastSubmit);
+            return timeSince < COOLDOWN_TIME;
+        } catch (err) {
+            // If localStorage is not available, skip cooldown check
+            return false;
+        }
     }
 
     // Get remaining cooldown time
     function getRemainingCooldown() {
-        const lastSubmit = localStorage.getItem('lastFormSubmit');
-        if (!lastSubmit) return 0;
-        const timeSince = Date.now() - parseInt(lastSubmit);
-        return Math.ceil((COOLDOWN_TIME - timeSince) / 1000);
+        try {
+            const lastSubmit = localStorage.getItem('lastFormSubmit');
+            if (!lastSubmit) return 0;
+            const timeSince = Date.now() - parseInt(lastSubmit);
+            return Math.ceil((COOLDOWN_TIME - timeSince) / 1000);
+        } catch (err) {
+            return 0;
+        }
     }
 
     // Check cooldown on page load
@@ -188,18 +197,30 @@
         }, remaining * 1000);
     }
 
-    form.addEventListener('submit', function(e) {
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+
         // Check cooldown
         if (isInCooldown()) {
-            e.preventDefault();
             const remaining = getRemainingCooldown();
             formStatus.textContent = `Please wait ${remaining} seconds before submitting again.`;
             formStatus.className = 'form-status error';
             return;
         }
 
+        // Check honeypot field
+        const honeypot = form.querySelector('[name="_gotcha"]');
+        if (honeypot && honeypot.value !== '') {
+            // Silently fail for bots
+            return;
+        }
+
         // Set cooldown
-        localStorage.setItem('lastFormSubmit', Date.now().toString());
+        try {
+            localStorage.setItem('lastFormSubmit', Date.now().toString());
+        } catch (err) {
+            console.warn('localStorage not available:', err);
+        }
 
         // Disable button and show loading state
         submitBtn.disabled = true;
@@ -207,12 +228,44 @@
         formStatus.textContent = 'Sending your message...';
         formStatus.className = 'form-status info';
 
-        // Note: Form will submit naturally to Formspree
-        // Re-enable after cooldown period
-        setTimeout(() => {
+        try {
+            // Submit form via AJAX
+            const response = await fetch(form.action, {
+                method: 'POST',
+                body: new FormData(form),
+                headers: {
+                    'Accept': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                // Success
+                formStatus.textContent = 'Thank you! Your message has been sent successfully.';
+                formStatus.className = 'form-status success';
+                form.reset();
+
+                // Re-enable button after cooldown
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Send Message';
+                    formStatus.textContent = '';
+                    formStatus.className = 'form-status';
+                }, COOLDOWN_TIME);
+            } else {
+                // Server error
+                const data = await response.json();
+                formStatus.textContent = data.error || 'Oops! There was a problem sending your message. Please try again.';
+                formStatus.className = 'form-status error';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Send Message';
+            }
+        } catch (error) {
+            // Network error
+            formStatus.textContent = 'Network error. Please check your connection and try again.';
+            formStatus.className = 'form-status error';
             submitBtn.disabled = false;
             submitBtn.textContent = 'Send Message';
-        }, COOLDOWN_TIME);
+        }
     });
 })();
 </script>
