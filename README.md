@@ -158,7 +158,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 **SigMap OÜ**
 - Email: info@sigmap.tech
 - Phone: +358 40779 0767
-- Address: Spordi tee 2-4, 74201 Loo alevik, Estonia
+- Address: Idapõllu tee 3-21, 74001, Haabneeme alevik, Viimsi vald, Harju maakond, Estonia
 
 ## Maintenance Notes
 
