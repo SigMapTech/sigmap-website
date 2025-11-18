@@ -40,6 +40,17 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 
+    <!-- Google reCAPTCHA v3 -->
+    <!-- To enable reCAPTCHA protection:
+         1. Sign up at https://www.google.com/recaptcha/admin
+         2. Choose reCAPTCHA v3
+         3. Add your domain (sigmap.tech)
+         4. Get your Site Key
+         5. Replace YOUR_RECAPTCHA_SITE_KEY below with your actual key
+         6. Add the Secret Key to your Formspree form settings
+    -->
+    <!-- <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY"></script> -->
+
     <!-- Structured Data -->
     <script type="application/ld+json">
     {
@@ -128,8 +139,16 @@
                 <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
             </div>
 
-            <!-- Honeypot field - hidden from real users, catches bots -->
+            <!-- Honeypot fields - hidden from real users, catches bots -->
             <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+            <!-- Additional honeypot with deceptive name that bots often fill -->
+            <div class="honeypot" aria-hidden="true">
+                <label for="website">Website</label>
+                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
+
+            <!-- Google reCAPTCHA v3 (will be populated dynamically) -->
+            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
 
             <button type="submit" id="submit-btn" class="submit-btn">Send Message</button>
             <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
@@ -154,6 +173,8 @@
     const submitBtn = document.getElementById('submit-btn');
     const formStatus = document.getElementById('form-status');
     const COOLDOWN_TIME = 60000; // 60 seconds between submissions
+    const MIN_SUBMIT_TIME = 3000; // Minimum 3 seconds before form can be submitted
+    const formLoadTime = Date.now(); // Track when form loaded
 
     // Check if user is in cooldown period
     function isInCooldown() {
@@ -206,10 +227,41 @@
             return;
         }
 
-        // Check honeypot field
-        const honeypot = form.querySelector('[name="_gotcha"]');
-        if (honeypot && honeypot.value !== '') {
+        // Time-based validation - reject submissions that are too fast
+        const timeSinceLoad = Date.now() - formLoadTime;
+        if (timeSinceLoad < MIN_SUBMIT_TIME) {
+            // Silently fail for bots that submit too quickly
+            formStatus.textContent = 'Please take a moment to review your message.';
+            formStatus.className = 'form-status error';
+            return;
+        }
+
+        // Check all honeypot fields
+        const honeypot1 = form.querySelector('[name="_gotcha"]');
+        const honeypot2 = form.querySelector('[name="website"]');
+        if ((honeypot1 && honeypot1.value !== '') || (honeypot2 && honeypot2.value !== '')) {
             // Silently fail for bots
+            console.log('Honeypot triggered - likely spam submission');
+            return;
+        }
+
+        // Additional validation - check for suspicious patterns
+        const message = form.querySelector('[name="message"]').value;
+        const name = form.querySelector('[name="name"]').value;
+
+        // Check if message contains excessive links (common in spam)
+        const urlPattern = /(https?:\/\/[^\s]+)/g;
+        const urlMatches = message.match(urlPattern);
+        if (urlMatches && urlMatches.length > 3) {
+            formStatus.textContent = 'Your message contains too many links. Please reduce the number of links.';
+            formStatus.className = 'form-status error';
+            return;
+        }
+
+        // Check for very short messages (likely spam)
+        if (message.trim().length < 10) {
+            formStatus.textContent = 'Please provide a more detailed message.';
+            formStatus.className = 'form-status error';
             return;
         }
 
@@ -227,6 +279,16 @@
         formStatus.className = 'form-status info';
 
         try {
+            // Generate reCAPTCHA token if available
+            if (typeof grecaptcha !== 'undefined' && window.RECAPTCHA_SITE_KEY) {
+                try {
+                    const token = await grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {action: 'submit'});
+                    document.getElementById('g-recaptcha-response').value = token;
+                } catch (err) {
+                    console.warn('reCAPTCHA error:', err);
+                }
+            }
+
             // Submit form via AJAX
             const response = await fetch(form.action, {
                 method: 'POST',
