@@ -157,7 +157,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **SigMap OÜ**
 - Email: info@sigmap.tech
-- Phone: +358 40779 0767
 - Address: Idapõllu tee 3-21, 74001, Haabneeme alevik, Viimsi vald, Harju maakond, Estonia
 
 ## Maintenance Notes
@@ -173,11 +172,9 @@ To add favicons:
 2. Place them in the root directory
 3. The HTML already includes the necessary `<link>` tags
 
-### Updating Copyright Year
+### Copyright Year
 
-The footer copyright year is set to 2025. Update this in:
-- `index.html` (line 67)
-- `2048/privacy-policy.html` (line 121)
+The footer copyright year is automatically set to the current year using JavaScript. No manual updates are required.
 
 ## Recent Updates
 
@@ -192,4 +189,4 @@ The footer copyright year is set to 2025. Update this in:
 
 ---
 
-**Last Updated:** January 2025
+**Last Updated:** December 2025
