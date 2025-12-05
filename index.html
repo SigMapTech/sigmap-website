@@ -69,7 +69,6 @@
             "postalCode": "74001",
             "addressCountry": "EE"
         },
-        "sameAs": [],
         "foundingDate": "2025",
         "areaServed": {
             "@type": "Place",
@@ -163,8 +162,9 @@
     </section>
 </main>
 <footer role="contentinfo">
-    <p>&copy; 2025 SigMap OÜ - All Rights Reserved</p>
+    <p>&copy; <span id="copyright-year">2025</span> SigMap OÜ - All Rights Reserved</p>
 </footer>
+<script>document.getElementById('copyright-year').textContent = new Date().getFullYear();</script>
 
 <!-- Contact Form Script -->
 <script>
@@ -241,7 +241,7 @@
         const honeypot2 = form.querySelector('[name="website"]');
         if ((honeypot1 && honeypot1.value !== '') || (honeypot2 && honeypot2.value !== '')) {
             // Silently fail for bots
-            console.log('Honeypot triggered - likely spam submission');
+            // Silently reject spam submission
             return;
         }
 
@@ -269,7 +269,7 @@
         try {
             localStorage.setItem('lastFormSubmit', Date.now().toString());
         } catch (err) {
-            console.warn('localStorage not available:', err);
+            // localStorage not available, continue without cooldown tracking
         }
 
         // Disable button and show loading state
@@ -285,7 +285,7 @@
                     const token = await grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {action: 'submit'});
                     document.getElementById('g-recaptcha-response').value = token;
                 } catch (err) {
-                    console.warn('reCAPTCHA error:', err);
+                    // reCAPTCHA not available, continue without it
                 }
             }
 
