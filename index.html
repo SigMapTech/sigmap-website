@@ -35,6 +35,9 @@
     <!-- Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- DNS Prefetch for external services -->
+    <link rel="dns-prefetch" href="https://formspree.io">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Stylesheet -->
@@ -117,25 +120,31 @@
         <p>If you have any questions or need assistance, feel free to contact us:</p>
 
         <!-- Contact Form -->
+        <noscript>
+            <p style="padding: 1rem; background: #ffebee; color: #c62828; border-radius: 4px; margin-bottom: 1rem;">
+                This contact form requires JavaScript to be enabled. Please enable JavaScript in your browser,
+                or contact us directly at <a href="mailto:info@sigmap.tech">info@sigmap.tech</a>.
+            </p>
+        </noscript>
         <form action="https://formspree.io/f/movyvqqe" method="POST" id="contact-form" class="contact-form">
             <div class="form-group">
                 <label for="name">Name *</label>
-                <input type="text" id="name" name="name" required aria-required="true">
+                <input type="text" id="name" name="name" required aria-required="true" aria-describedby="form-status">
             </div>
 
             <div class="form-group">
                 <label for="email">Email *</label>
-                <input type="email" id="email" name="email" required aria-required="true">
+                <input type="email" id="email" name="email" required aria-required="true" aria-describedby="form-status">
             </div>
 
             <div class="form-group">
                 <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject">
+                <input type="text" id="subject" name="subject" aria-describedby="form-status">
             </div>
 
             <div class="form-group">
                 <label for="message">Message *</label>
-                <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+                <textarea id="message" name="message" rows="5" required aria-required="true" aria-describedby="form-status"></textarea>
             </div>
 
             <!-- Honeypot fields - hidden from real users, catches bots -->
@@ -172,9 +181,79 @@
     const form = document.getElementById('contact-form');
     const submitBtn = document.getElementById('submit-btn');
     const formStatus = document.getElementById('form-status');
-    const COOLDOWN_TIME = 60000; // 60 seconds between submissions
-    const MIN_SUBMIT_TIME = 3000; // Minimum 3 seconds before form can be submitted
-    const formLoadTime = Date.now(); // Track when form loaded
+
+    // Configuration constants
+    const COOLDOWN_TIME = 60000;      // 60 seconds between submissions
+    const MIN_SUBMIT_TIME = 3000;     // Minimum 3 seconds before form can be submitted
+    const MAX_URL_COUNT = 3;          // Maximum URLs allowed in message
+    const MIN_MESSAGE_LENGTH = 10;    // Minimum message character length
+
+    const formLoadTime = Date.now();  // Track when form loaded
+
+    // Form field references for aria-invalid handling
+    const formFields = {
+        name: form.querySelector('#name'),
+        email: form.querySelector('#email'),
+        message: form.querySelector('#message')
+    };
+
+    /**
+     * Clear aria-invalid attribute from all form fields
+     */
+    function clearFieldErrors() {
+        Object.values(formFields).forEach(field => {
+            if (field) field.removeAttribute('aria-invalid');
+        });
+    }
+
+    /**
+     * Mark a specific field as invalid for accessibility
+     * @param {string} fieldName - The name of the field to mark invalid
+     */
+    function setFieldError(fieldName) {
+        if (formFields[fieldName]) {
+            formFields[fieldName].setAttribute('aria-invalid', 'true');
+        }
+    }
+
+    /**
+     * Display error message with proper accessibility attributes
+     * @param {string} message - The error message to display
+     */
+    function showError(message) {
+        formStatus.textContent = message;
+        formStatus.className = 'form-status error';
+        formStatus.setAttribute('role', 'alert');
+    }
+
+    /**
+     * Display info message
+     * @param {string} message - The info message to display
+     */
+    function showInfo(message) {
+        formStatus.textContent = message;
+        formStatus.className = 'form-status info';
+        formStatus.setAttribute('role', 'status');
+    }
+
+    /**
+     * Display success message
+     * @param {string} message - The success message to display
+     */
+    function showSuccess(message) {
+        formStatus.textContent = message;
+        formStatus.className = 'form-status success';
+        formStatus.setAttribute('role', 'status');
+    }
+
+    /**
+     * Clear status message
+     */
+    function clearStatus() {
+        formStatus.textContent = '';
+        formStatus.className = 'form-status';
+        formStatus.setAttribute('role', 'status');
+    }
 
     // Check if user is in cooldown period
     function isInCooldown() {
@@ -205,34 +284,32 @@
     if (isInCooldown()) {
         const remaining = getRemainingCooldown();
         submitBtn.disabled = true;
-        formStatus.textContent = `Please wait ${remaining} seconds before submitting again.`;
-        formStatus.className = 'form-status info';
+        showInfo(`Please wait ${remaining} seconds before submitting again.`);
 
         // Re-enable after cooldown
         setTimeout(() => {
             submitBtn.disabled = false;
-            formStatus.textContent = '';
-            formStatus.className = 'form-status';
+            clearStatus();
         }, remaining * 1000);
     }
 
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
+        // Clear previous field errors
+        clearFieldErrors();
+
         // Check cooldown
         if (isInCooldown()) {
             const remaining = getRemainingCooldown();
-            formStatus.textContent = `Please wait ${remaining} seconds before submitting again.`;
-            formStatus.className = 'form-status error';
+            showError(`Please wait ${remaining} seconds before submitting again.`);
             return;
         }
 
         // Time-based validation - reject submissions that are too fast
         const timeSinceLoad = Date.now() - formLoadTime;
         if (timeSinceLoad < MIN_SUBMIT_TIME) {
-            // Silently fail for bots that submit too quickly
-            formStatus.textContent = 'Please take a moment to review your message.';
-            formStatus.className = 'form-status error';
+            showError('Please take a moment to review your message.');
             return;
         }
 
@@ -240,28 +317,26 @@
         const honeypot1 = form.querySelector('[name="_gotcha"]');
         const honeypot2 = form.querySelector('[name="website"]');
         if ((honeypot1 && honeypot1.value !== '') || (honeypot2 && honeypot2.value !== '')) {
-            // Silently fail for bots
             // Silently reject spam submission
             return;
         }
 
         // Additional validation - check for suspicious patterns
         const message = form.querySelector('[name="message"]').value;
-        const name = form.querySelector('[name="name"]').value;
 
         // Check if message contains excessive links (common in spam)
         const urlPattern = /(https?:\/\/[^\s]+)/g;
         const urlMatches = message.match(urlPattern);
-        if (urlMatches && urlMatches.length > 3) {
-            formStatus.textContent = 'Your message contains too many links. Please reduce the number of links.';
-            formStatus.className = 'form-status error';
+        if (urlMatches && urlMatches.length > MAX_URL_COUNT) {
+            setFieldError('message');
+            showError('Your message contains too many links. Please reduce the number of links.');
             return;
         }
 
         // Check for very short messages (likely spam)
-        if (message.trim().length < 10) {
-            formStatus.textContent = 'Please provide a more detailed message.';
-            formStatus.className = 'form-status error';
+        if (message.trim().length < MIN_MESSAGE_LENGTH) {
+            setFieldError('message');
+            showError('Please provide a more detailed message.');
             return;
         }
 
@@ -275,8 +350,8 @@
         // Disable button and show loading state
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
-        formStatus.textContent = 'Sending your message...';
-        formStatus.className = 'form-status info';
+        submitBtn.setAttribute('aria-busy', 'true');
+        showInfo('Sending your message...');
 
         try {
             // Generate reCAPTCHA token if available
@@ -300,31 +375,31 @@
 
             if (response.ok) {
                 // Success
-                formStatus.textContent = 'Thank you! Your message has been sent successfully.';
-                formStatus.className = 'form-status success';
+                showSuccess('Thank you! Your message has been sent successfully.');
                 form.reset();
+                clearFieldErrors();
+                submitBtn.removeAttribute('aria-busy');
 
                 // Re-enable button after cooldown
                 setTimeout(() => {
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Send Message';
-                    formStatus.textContent = '';
-                    formStatus.className = 'form-status';
+                    clearStatus();
                 }, COOLDOWN_TIME);
             } else {
                 // Server error
                 const data = await response.json();
-                formStatus.textContent = data.error || 'Oops! There was a problem sending your message. Please try again.';
-                formStatus.className = 'form-status error';
+                showError(data.error || 'Oops! There was a problem sending your message. Please try again.');
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Send Message';
+                submitBtn.removeAttribute('aria-busy');
             }
         } catch (error) {
             // Network error
-            formStatus.textContent = 'Network error. Please check your connection and try again.';
-            formStatus.className = 'form-status error';
+            showError('Network error. Please check your connection and try again.');
             submitBtn.disabled = false;
             submitBtn.textContent = 'Send Message';
+            submitBtn.removeAttribute('aria-busy');
         }
     });
 })();

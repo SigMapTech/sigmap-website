@@ -1,10 +1,61 @@
+/* CSS Custom Properties */
+:root {
+    /* Colors */
+    --color-primary: #333;
+    --color-primary-light: #444;
+    --color-accent: #0066cc;
+    --color-accent-hover: #0052a3;
+    --color-accent-dark: #004499;
+    --color-text: #555;
+    --color-text-light: #999;
+    --color-background: #f9f9f9;
+    --color-background-light: #f5f5f5;
+    --color-white: #fff;
+    --color-border: #ccc;
+    --color-border-light: #ddd;
+
+    /* Status Colors */
+    --color-success: #2e7d32;
+    --color-success-bg: #e8f5e9;
+    --color-success-border: #81c784;
+    --color-error: #c62828;
+    --color-error-bg: #ffebee;
+    --color-error-border: #ef9a9a;
+    --color-info: #1976d2;
+    --color-info-bg: #e3f2fd;
+    --color-info-border: #90caf9;
+
+    /* Spacing */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 1rem;
+    --spacing-md: 1.5rem;
+    --spacing-lg: 2rem;
+    --spacing-xl: 3rem;
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    /* Transitions */
+    --transition-fast: 0.1s;
+    --transition-normal: 0.2s;
+
+    /* Focus */
+    --focus-outline: 2px solid var(--color-accent);
+    --focus-outline-light: 2px solid var(--color-white);
+}
+
 /* General Styles */
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
-    background-color: #f9f9f9;
+    background-color: var(--color-background);
     padding-bottom: 80px; /* Space for footer */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -19,12 +70,12 @@ html {
     position: absolute;
     top: -40px;
     left: 0;
-    background: #333;
-    color: white;
+    background: var(--color-primary);
+    color: var(--color-white);
     padding: 8px 16px;
     text-decoration: none;
     z-index: 100;
-    border-radius: 0 0 4px 0;
+    border-radius: 0 0 var(--radius-sm) 0;
 }
 
 .skip-link:focus {
@@ -37,36 +88,36 @@ button:focus,
 input:focus,
 textarea:focus,
 select:focus {
-    outline: 2px solid #0066cc;
+    outline: var(--focus-outline);
     outline-offset: 2px;
 }
 
 nav a:focus {
-    outline: 2px solid #fff;
+    outline: var(--focus-outline-light);
     outline-offset: 2px;
 }
 
 /* Header Styles */
 header {
-    background-color: #333;
-    color: white;
-    padding: 1rem 0;
+    background-color: var(--color-primary);
+    color: var(--color-white);
+    padding: var(--spacing-sm) 0;
     text-align: center;
 }
 
 /* Navigation Styles */
 nav {
-    background: #444;
+    background: var(--color-primary-light);
     text-align: center;
-    padding: 0.5rem 0;
+    padding: var(--spacing-xs) 0;
 }
 
 nav a {
-    color: white;
+    color: var(--color-white);
     text-decoration: none;
     margin: 0 15px;
     font-weight: 600;
-    transition: text-decoration 0.2s;
+    transition: text-decoration var(--transition-normal);
     letter-spacing: -0.01em;
 }
 
@@ -79,16 +130,16 @@ main {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: var(--color-white);
+    box-shadow: var(--shadow-md);
 }
 
 /* Footer Styles */
 footer {
     text-align: center;
-    padding: 1rem 0;
-    background-color: #333;
-    color: white;
+    padding: var(--spacing-sm) 0;
+    background-color: var(--color-primary);
+    color: var(--color-white);
     position: relative;
     bottom: 0;
     width: 100%;
@@ -97,7 +148,7 @@ footer {
 
 /* Typography */
 h1, h2 {
-    color: #333;
+    color: var(--color-primary);
     font-weight: 700;
     letter-spacing: -0.02em;
 }
@@ -115,7 +166,7 @@ h2 {
 }
 
 p {
-    color: #555;
+    color: var(--color-text);
     font-weight: 400;
 }
 
@@ -131,31 +182,31 @@ header p {
 
 /* Links */
 a {
-    color: #0066cc;
+    color: var(--color-accent);
 }
 
 a:hover {
-    color: #004499;
+    color: var(--color-accent-dark);
 }
 
 /* Contact Form Styles */
 .contact-form {
     max-width: 600px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background: #f5f5f5;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: var(--spacing-lg) auto;
+    padding: var(--spacing-lg);
+    background: var(--color-background-light);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
 }
 
 .form-group {
-    margin-bottom: 1.5rem;
+    margin-bottom: var(--spacing-md);
 }
 
 .form-group label {
     display: block;
-    margin-bottom: 0.5rem;
-    color: #333;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-primary);
     font-weight: 600;
     font-size: 0.95rem;
 }
@@ -164,18 +215,31 @@ a:hover {
 .form-group textarea {
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
     font-family: inherit;
     font-size: 1rem;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
     box-sizing: border-box;
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-    border-color: #0066cc;
+    border-color: var(--color-accent);
     box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+/* Invalid form field state */
+.form-group input[aria-invalid="true"],
+.form-group textarea[aria-invalid="true"] {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.1);
+}
+
+.form-group input[aria-invalid="true"]:focus,
+.form-group textarea[aria-invalid="true"]:focus {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.2);
 }
 
 .form-group textarea {
@@ -194,20 +258,20 @@ a:hover {
 }
 
 .submit-btn {
-    background-color: #0066cc;
-    color: white;
+    background-color: var(--color-accent);
+    color: var(--color-white);
     padding: 0.875rem 2rem;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.1s;
+    transition: background-color var(--transition-normal), transform var(--transition-fast);
     width: 100%;
 }
 
 .submit-btn:hover {
-    background-color: #0052a3;
+    background-color: var(--color-accent-hover);
 }
 
 .submit-btn:active {
@@ -215,40 +279,40 @@ a:hover {
 }
 
 .submit-btn:disabled {
-    background-color: #999;
+    background-color: var(--color-text-light);
     cursor: not-allowed;
 }
 
 .form-status {
-    margin-top: 1rem;
+    margin-top: var(--spacing-sm);
     padding: 0.75rem;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     text-align: center;
     font-weight: 500;
 }
 
 .form-status.info {
-    background-color: #e3f2fd;
-    color: #1976d2;
-    border: 1px solid #90caf9;
+    background-color: var(--color-info-bg);
+    color: var(--color-info);
+    border: 1px solid var(--color-info-border);
 }
 
 .form-status.error {
-    background-color: #ffebee;
-    color: #c62828;
-    border: 1px solid #ef9a9a;
+    background-color: var(--color-error-bg);
+    color: var(--color-error);
+    border: 1px solid var(--color-error-border);
 }
 
 .form-status.success {
-    background-color: #e8f5e9;
-    color: #2e7d32;
-    border: 1px solid #81c784;
+    background-color: var(--color-success-bg);
+    color: var(--color-success);
+    border: 1px solid var(--color-success-border);
 }
 
 .contact-info {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 1px solid #ddd;
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border-light);
 }
 
 .contact-info p {
