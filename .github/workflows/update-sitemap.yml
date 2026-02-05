@@ -7,6 +7,9 @@ on:
     paths-ignore:
       - '.github/workflows/update-sitemap.yml'
 
+permissions:
+  contents: write
+
 jobs:
   update-sitemap:
     runs-on: ubuntu-latest
