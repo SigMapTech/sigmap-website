@@ -178,6 +178,20 @@ header h1 {
 header p {
     font-weight: 500;
     letter-spacing: -0.01em;
+    color: var(--color-white);
+}
+
+footer p {
+    color: var(--color-white);
+}
+
+footer a {
+    color: var(--color-white);
+    text-decoration: underline;
+}
+
+footer a:hover {
+    opacity: 0.8;
 }
 
 /* Links */
