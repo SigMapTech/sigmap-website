@@ -3,9 +3,9 @@
     /* Colors */
     --color-primary: #333;
     --color-primary-light: #444;
-    --color-accent: #0066cc;
+    --color-accent: #06c;
     --color-accent-hover: #0052a3;
-    --color-accent-dark: #004499;
+    --color-accent-dark: #049;
     --color-text: #555;
     --color-text-light: #999;
     --color-background: #f9f9f9;
@@ -37,8 +37,8 @@
     --radius-md: 8px;
 
     /* Shadows */
-    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 0 10px rgba(0, 0, 0, 0.1);
+    --shadow-sm: 0 2px 8px rgb(0 0 0 / 0.1);
+    --shadow-md: 0 0 10px rgb(0 0 0 / 0.1);
 
     /* Transitions */
     --transition-fast: 0.1s;
@@ -51,7 +51,7 @@
 
 /* General Styles */
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -255,20 +255,20 @@ a:hover {
 .form-group input:focus,
 .form-group textarea:focus {
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+    box-shadow: 0 0 0 3px rgb(0 102 204 / 0.1);
 }
 
 /* Invalid form field state */
 .form-group input[aria-invalid="true"],
 .form-group textarea[aria-invalid="true"] {
     border-color: var(--color-error);
-    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.1);
+    box-shadow: 0 0 0 3px rgb(198 40 40 / 0.1);
 }
 
 .form-group input[aria-invalid="true"]:focus,
 .form-group textarea[aria-invalid="true"]:focus {
     border-color: var(--color-error);
-    box-shadow: 0 0 0 3px rgba(198, 40, 40, 0.2);
+    box-shadow: 0 0 0 3px rgb(198 40 40 / 0.2);
 }
 
 .form-group textarea {
@@ -357,7 +357,7 @@ a:hover {
 }
 
 /* Mobile Responsive Design */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     nav a {
         margin: 0 0.625rem;
         font-size: 0.875rem;
@@ -386,7 +386,7 @@ a:hover {
     }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
     nav {
         padding: 0.5rem 0;
     }
