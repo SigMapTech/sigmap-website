@@ -25,6 +25,13 @@ sigmap-website/
 ├── style.css                  # Global stylesheet (mobile-first, responsive)
 ├── 2048/
 │   └── privacy-policy.html    # Privacy policy for 2048 mobile game
+├── pulluptracker/
+│   └── privacy/
+│       └── index.html         # Privacy policy for Pull-Ups Tracker iOS app
+├── .github/
+│   └── workflows/
+│       ├── quality-checks.yml # HTML/CSS validation, accessibility, Lighthouse, link checks
+│       └── update-sitemap.yml # Auto-updates sitemap lastmod dates on push to main
 ├── CNAME                      # GitHub Pages custom domain config (sigmap.tech)
 ├── robots.txt                 # SEO crawler configuration
 ├── sitemap.xml                # XML sitemap for search engines
@@ -33,6 +40,7 @@ sigmap-website/
 ├── apple-touch-icon.png       # Apple touch icon (180x180)
 ├── LICENSE                    # MIT License
 ├── README.md                  # Project documentation
+├── CLAUDE.md                  # AI assistant guide (this file)
 └── .gitignore                 # Git ignore rules
 ```
 
@@ -125,7 +133,7 @@ Backend: Formspree handles form submissions (POST to `https://formspree.io/f/mov
 The footer copyright year is automatically set via JavaScript - no manual updates needed:
 
 ```javascript
-document.getElementById('currentYear').textContent = new Date().getFullYear();
+document.getElementById('copyright-year').textContent = new Date().getFullYear();
 ```
 
 ### External Links
@@ -144,6 +152,13 @@ The `/2048/privacy-policy.html` documents the privacy practices for SigMap's 204
 - Uses Firebase Crashlytics for crash reporting
 - Integrates Google Play Integrity API for security
 - Collects device information for diagnostics
+
+### Pull-Ups Tracker (iOS)
+
+The `/pulluptracker/privacy/index.html` documents the privacy practices for the Pull-Ups Tracker iOS app:
+- Stores workout data locally via SwiftData
+- Optional iCloud sync via CloudKit
+- No analytics, tracking, or advertising
 
 ## File Editing Guidelines
 
@@ -195,8 +210,8 @@ Edit the relevant sections in `index.html`:
 
 ### Add New Service
 
-1. Add new `<div class="service-card">` in the services section
-2. Follow existing card structure (icon, h3, p)
+1. Add new `<li>` item in the services `<ul>` list in `index.html`
+2. Follow existing list item structure
 3. Maintain consistent styling
 
 ### Modify Contact Form Fields
@@ -207,7 +222,7 @@ Edit the relevant sections in `index.html`:
 
 ### Update Privacy Policy
 
-Edit `/2048/privacy-policy.html`:
+Edit `/2048/privacy-policy.html` or `/pulluptracker/privacy/index.html`:
 - Update the "Last Updated" date
 - Maintain consistent styling with main site
 - Keep GDPR compliance information accurate
@@ -245,4 +260,4 @@ Edit `/2048/privacy-policy.html`:
 
 ---
 
-*Last Updated: January 2026*
+*Last Updated: February 2026*

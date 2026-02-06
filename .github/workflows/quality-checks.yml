@@ -86,7 +86,7 @@ jobs:
       - name: Validate CSS files
         run: |
           echo "Validating CSS files..."
-          stylelint "**/*.css" --formatter verbose || true
+          stylelint "**/*.css" --formatter verbose
 
   accessibility:
     name: Accessibility Testing (axe-core)
@@ -163,7 +163,7 @@ jobs:
       - name: Run Lighthouse CI
         run: |
           echo "Running Lighthouse performance checks..."
-          lhci autorun || echo "Lighthouse completed with warnings"
+          lhci autorun
 
       - name: Upload Lighthouse results
         uses: actions/upload-artifact@v4
@@ -180,33 +180,29 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Install lychee link checker
-        run: |
-          curl -sLO https://github.com/lycheeverse/lychee/releases/download/v0.15.1/lychee-v0.15.1-x86_64-unknown-linux-gnu.tar.gz
-          tar -xzf lychee-v0.15.1-x86_64-unknown-linux-gnu.tar.gz
-          chmod +x lychee
-          sudo mv lychee /usr/local/bin/
-
       - name: Check for broken links
-        run: |
-          echo "Checking for broken links..."
-          lychee --verbose --no-progress \
-            --exclude "^mailto:" \
-            --exclude "^tel:" \
-            --exclude "localhost" \
-            --exclude "127.0.0.1" \
-            --exclude "formspree.io" \
-            --accept "200,204,206,301,302,304,307,308" \
-            --timeout 30 \
-            --retry-wait-time 5 \
-            --max-retries 3 \
-            "**/*.html" "**/*.md" || echo "Link check completed with warnings"
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: >-
+            --verbose
+            --no-progress
+            --exclude "^mailto:"
+            --exclude "^tel:"
+            --exclude "localhost"
+            --exclude "127.0.0.1"
+            --exclude "formspree.io"
+            --accept "200,204,206,301,302,304,307,308"
+            --timeout 30
+            --retry-wait-time 5
+            --max-retries 3
+            "**/*.html" "**/*.md"
+          fail: true
 
       - name: Upload link check results
         uses: actions/upload-artifact@v4
         if: always()
         with:
           name: link-check-results
-          path: lychee-report.md
+          path: lychee/out.md
           retention-days: 30
           if-no-files-found: ignore

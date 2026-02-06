@@ -26,11 +26,25 @@ jobs:
       - name: Update sitemap lastmod dates
         run: |
           TODAY=$(date +%Y-%m-%d)
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD 2>/dev/null || echo "")
 
-          # Update lastmod dates in sitemap.xml
-          sed -i "s|<lastmod>[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}</lastmod>|<lastmod>${TODAY}</lastmod>|g" sitemap.xml
+          # Update main page lastmod if relevant root files changed
+          if echo "$CHANGED_FILES" | grep -qE '^(index\.html|style\.css|favicon\.|apple-touch-icon)'; then
+            sed -i "/<loc>https:\/\/sigmap\.tech\/<\/loc>/,/<\/url>/ s|<lastmod>[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}</lastmod>|<lastmod>${TODAY}</lastmod>|" sitemap.xml
+            echo "Updated main page lastmod to ${TODAY}"
+          fi
 
-          echo "Updated sitemap.xml lastmod dates to ${TODAY}"
+          # Update 2048 privacy policy lastmod if its files changed
+          if echo "$CHANGED_FILES" | grep -q '^2048/'; then
+            sed -i "/<loc>https:\/\/sigmap\.tech\/2048\/privacy-policy\.html<\/loc>/,/<\/url>/ s|<lastmod>[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}</lastmod>|<lastmod>${TODAY}</lastmod>|" sitemap.xml
+            echo "Updated 2048 privacy policy lastmod to ${TODAY}"
+          fi
+
+          # Update pulluptracker privacy policy lastmod if its files changed
+          if echo "$CHANGED_FILES" | grep -q '^pulluptracker/'; then
+            sed -i "/<loc>https:\/\/sigmap\.tech\/pulluptracker\/privacy<\/loc>/,/<\/url>/ s|<lastmod>[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}</lastmod>|<lastmod>${TODAY}</lastmod>|" sitemap.xml
+            echo "Updated pulluptracker privacy policy lastmod to ${TODAY}"
+          fi
 
       - name: Check for changes
         id: changes
