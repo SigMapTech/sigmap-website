@@ -80,9 +80,10 @@ git push origin main
 
 - **Semantic HTML5:** Use `<header>`, `<nav>`, `<main>`, `<footer>`, `<section>` appropriately
 - **Accessibility (WCAG):**
-  - Include ARIA labels and roles (`role="banner"`, `role="navigation"`, `role="main"`, `role="contentinfo"`)
+  - Use semantic HTML elements (`<header>`, `<nav>`, `<main>`, `<footer>`) which carry implicit ARIA roles -- do not add redundant explicit `role` attributes
+  - Use `aria-label` on `<nav>` elements to describe their purpose
   - Use `aria-required` on required form fields
-  - Maintain proper heading hierarchy (h1 > h2 > h3)
+  - Maintain proper heading hierarchy (h1 > h2 > h3 > h4)
   - Include `aria-live="polite"` for status messages
 - **SEO Requirements:**
   - Canonical URLs
