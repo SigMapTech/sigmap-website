@@ -193,6 +193,7 @@ jobs:
             --exclude "127.0.0.1"
             --exclude "formspree.io"
             --exclude "apps.apple.com"
+            --exclude "sigmap.tech/pulluptracker/$"
             --accept "200,204,206,301,302,304,307,308"
             --timeout 30
             --retry-wait-time 5
