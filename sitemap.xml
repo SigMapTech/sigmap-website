@@ -13,6 +13,12 @@
         <priority>0.5</priority>
     </url>
     <url>
+        <loc>https://sigmap.tech/pulluptracker/</loc>
+        <lastmod>2026-02-10</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.8</priority>
+    </url>
+    <url>
         <loc>https://sigmap.tech/pulluptracker/privacy</loc>
         <lastmod>2026-02-05</lastmod>
         <changefreq>yearly</changefreq>
