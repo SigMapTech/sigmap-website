@@ -187,6 +187,7 @@ jobs:
           args: >-
             --verbose
             --no-progress
+            --root-dir .
             --exclude "^mailto:"
             --exclude "^tel:"
             --exclude "localhost"
