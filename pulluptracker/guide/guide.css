@@ -1,5 +1,10 @@
 /* ── Guide Page Styles ── */
 
+/* Offset anchor scroll for sticky nav */
+html {
+  scroll-padding-top: 72px;
+}
+
 /* Nav back link */
 .nav-back {
   font-size: 0.9rem;
