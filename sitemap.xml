@@ -24,4 +24,10 @@
         <changefreq>yearly</changefreq>
         <priority>0.5</priority>
     </url>
+    <url>
+        <loc>https://sigmap.tech/pulluptracker/guide/</loc>
+        <lastmod>2026-02-27</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
 </urlset>
