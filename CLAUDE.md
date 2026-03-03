@@ -25,9 +25,6 @@ sigmap-website/
 ├── style.css                  # Global stylesheet (mobile-first, responsive)
 ├── 2048/
 │   └── privacy-policy.html    # Privacy policy for 2048 mobile game
-├── pulluptracker/
-│   └── privacy/
-│       └── index.html         # Privacy policy for Pull-Ups Tracker iOS app
 ├── .github/
 │   └── workflows/
 │       ├── quality-checks.yml # HTML/CSS validation, accessibility, Lighthouse, link checks
@@ -154,13 +151,6 @@ The `/2048/privacy-policy.html` documents the privacy practices for SigMap's 204
 - Integrates Google Play Integrity API for security
 - Collects device information for diagnostics
 
-### Pull-Ups Tracker (iOS)
-
-The `/pulluptracker/privacy/index.html` documents the privacy practices for the Pull-Ups Tracker iOS app:
-- Stores workout data locally via SwiftData
-- Optional iCloud sync via CloudKit
-- No analytics, tracking, or advertising
-
 ## File Editing Guidelines
 
 ### When Modifying index.html
@@ -223,7 +213,7 @@ Edit the relevant sections in `index.html`:
 
 ### Update Privacy Policy
 
-Edit `/2048/privacy-policy.html` or `/pulluptracker/privacy/index.html`:
+Edit `/2048/privacy-policy.html`:
 - Update the "Last Updated" date
 - Maintain consistent styling with main site
 - Keep GDPR compliance information accurate
@@ -261,4 +251,4 @@ Edit `/2048/privacy-policy.html` or `/pulluptracker/privacy/index.html`:
 
 ---
 
-*Last Updated: February 2026*
+*Last Updated: March 2026*
