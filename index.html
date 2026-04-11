@@ -309,21 +309,20 @@
 
 <!-- Navigation & Scroll Animations -->
 <script>
-(function() {
+(() => {
     // Mobile navigation toggle
-    var navToggle = document.getElementById('nav-toggle');
-    var navLinks = document.getElementById('nav-links');
+    const navToggle = document.getElementById('nav-toggle');
+    const navLinks = document.getElementById('nav-links');
 
     if (navToggle && navLinks) {
-        navToggle.addEventListener('click', function() {
-            var expanded = navToggle.getAttribute('aria-expanded') === 'true';
+        navToggle.addEventListener('click', () => {
+            const expanded = navToggle.getAttribute('aria-expanded') === 'true';
             navToggle.setAttribute('aria-expanded', String(!expanded));
             navLinks.classList.toggle('open');
         });
 
-        var links = navLinks.querySelectorAll('a');
-        for (var i = 0; i < links.length; i++) {
-            links[i].addEventListener('click', function() {
+        for (const link of navLinks.querySelectorAll('a')) {
+            link.addEventListener('click', () => {
                 navToggle.setAttribute('aria-expanded', 'false');
                 navLinks.classList.remove('open');
             });
@@ -331,36 +330,29 @@
     }
 
     // Sticky nav background on scroll
-    var siteNav = document.querySelector('.site-nav');
+    const siteNav = document.querySelector('.site-nav');
     if (siteNav) {
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                siteNav.classList.add('scrolled');
-            } else {
-                siteNav.classList.remove('scrolled');
-            }
+        window.addEventListener('scroll', () => {
+            siteNav.classList.toggle('scrolled', window.scrollY > 50);
         }, { passive: true });
     }
 
     // Scroll reveal animations
     if ('IntersectionObserver' in window) {
-        var observer = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
+        const observer = new IntersectionObserver((entries) => {
+            for (const entry of entries) {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
-            });
+            }
         }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-        var reveals = document.querySelectorAll('.reveal');
-        for (var j = 0; j < reveals.length; j++) {
-            observer.observe(reveals[j]);
+        for (const el of document.querySelectorAll('.reveal')) {
+            observer.observe(el);
         }
     } else {
-        // Fallback: show everything if IntersectionObserver not supported
-        var fallbacks = document.querySelectorAll('.reveal');
-        for (var k = 0; k < fallbacks.length; k++) {
-            fallbacks[k].classList.add('visible');
+        for (const el of document.querySelectorAll('.reveal')) {
+            el.classList.add('visible');
         }
     }
 })();
@@ -368,143 +360,123 @@
 
 <!-- Contact Form Script -->
 <script>
-(function() {
-    var form = document.getElementById('contact-form');
-    var submitBtn = document.getElementById('submit-btn');
-    var formStatus = document.getElementById('form-status');
+(() => {
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const formStatus = document.getElementById('form-status');
 
     // Configuration constants
-    var COOLDOWN_TIME = 60000;      // 60 seconds between submissions
-    var MIN_SUBMIT_TIME = 3000;     // Minimum 3 seconds before form can be submitted
-    var MAX_URL_COUNT = 3;          // Maximum URLs allowed in message
-    var MIN_MESSAGE_LENGTH = 10;    // Minimum message character length
+    const COOLDOWN_TIME = 60000;      // 60 seconds between submissions
+    const MIN_SUBMIT_TIME = 3000;     // Minimum 3 seconds before form can be submitted
+    const MAX_URL_COUNT = 3;          // Maximum URLs allowed in message
+    const MIN_MESSAGE_LENGTH = 10;    // Minimum message character length
 
-    var formLoadTime = Date.now();  // Track when form loaded
+    const formLoadTime = Date.now();  // Track when form loaded
 
     // Form field references for aria-invalid handling
-    var formFields = {
+    const formFields = {
         name: form.querySelector('#name'),
         email: form.querySelector('#email'),
         message: form.querySelector('#message')
     };
 
-    /**
-     * Clear aria-invalid attribute from all form fields
-     */
-    function clearFieldErrors() {
-        Object.values(formFields).forEach(function(field) {
+    const clearFieldErrors = () => {
+        Object.values(formFields).forEach((field) => {
             if (field) field.removeAttribute('aria-invalid');
         });
-    }
+    };
 
-    /**
-     * Mark a specific field as invalid for accessibility
-     */
-    function setFieldError(fieldName) {
+    const setFieldError = (fieldName) => {
         if (formFields[fieldName]) {
             formFields[fieldName].setAttribute('aria-invalid', 'true');
         }
-    }
+    };
 
-    /**
-     * Display error message with proper accessibility attributes
-     */
-    function showError(message) {
+    const showError = (message) => {
         formStatus.textContent = message;
         formStatus.className = 'form-status error';
         formStatus.setAttribute('role', 'alert');
-    }
+    };
 
-    /**
-     * Display info message
-     */
-    function showInfo(message) {
+    const showInfo = (message) => {
         formStatus.textContent = message;
         formStatus.className = 'form-status info';
         formStatus.setAttribute('role', 'status');
-    }
+    };
 
-    /**
-     * Display success message
-     */
-    function showSuccess(message) {
+    const showSuccess = (message) => {
         formStatus.textContent = message;
         formStatus.className = 'form-status success';
         formStatus.setAttribute('role', 'status');
-    }
+    };
 
-    /**
-     * Clear status message
-     */
-    function clearStatus() {
+    const clearStatus = () => {
         formStatus.textContent = '';
         formStatus.className = 'form-status';
         formStatus.setAttribute('role', 'status');
-    }
+    };
 
-    // Check if user is in cooldown period
-    function isInCooldown() {
+    const isInCooldown = () => {
         try {
-            var lastSubmit = localStorage.getItem('lastFormSubmit');
+            const lastSubmit = localStorage.getItem('lastFormSubmit');
             if (!lastSubmit) return false;
-            var timeSince = Date.now() - parseInt(lastSubmit);
+            const timeSince = Date.now() - parseInt(lastSubmit);
             return timeSince < COOLDOWN_TIME;
         } catch (err) {
             return false;
         }
-    }
+    };
 
-    // Get remaining cooldown time
-    function getRemainingCooldown() {
+    const getRemainingCooldown = () => {
         try {
-            var lastSubmit = localStorage.getItem('lastFormSubmit');
+            const lastSubmit = localStorage.getItem('lastFormSubmit');
             if (!lastSubmit) return 0;
-            var timeSince = Date.now() - parseInt(lastSubmit);
+            const timeSince = Date.now() - parseInt(lastSubmit);
             return Math.ceil((COOLDOWN_TIME - timeSince) / 1000);
         } catch (err) {
             return 0;
         }
-    }
+    };
 
     // Check cooldown on page load
     if (isInCooldown()) {
-        var remaining = getRemainingCooldown();
+        const remaining = getRemainingCooldown();
         submitBtn.disabled = true;
-        showInfo('Please wait ' + remaining + ' seconds before submitting again.');
+        showInfo(`Please wait ${remaining} seconds before submitting again.`);
 
-        setTimeout(function() {
+        setTimeout(() => {
             submitBtn.disabled = false;
             clearStatus();
         }, remaining * 1000);
     }
 
-    form.addEventListener('submit', async function(e) {
+    form.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         clearFieldErrors();
 
         if (isInCooldown()) {
-            var cooldownRemaining = getRemainingCooldown();
-            showError('Please wait ' + cooldownRemaining + ' seconds before submitting again.');
+            const cooldownRemaining = getRemainingCooldown();
+            showError(`Please wait ${cooldownRemaining} seconds before submitting again.`);
             return;
         }
 
-        var timeSinceLoad = Date.now() - formLoadTime;
+        const timeSinceLoad = Date.now() - formLoadTime;
         if (timeSinceLoad < MIN_SUBMIT_TIME) {
             showError('Please take a moment to review your message.');
             return;
         }
 
-        var honeypot1 = form.querySelector('[name="_gotcha"]');
-        var honeypot2 = form.querySelector('[name="website"]');
+        const honeypot1 = form.querySelector('[name="_gotcha"]');
+        const honeypot2 = form.querySelector('[name="website"]');
         if ((honeypot1 && honeypot1.value !== '') || (honeypot2 && honeypot2.value !== '')) {
             return;
         }
 
-        var message = form.querySelector('[name="message"]').value;
+        const message = form.querySelector('[name="message"]').value;
 
-        var urlPattern = /(https?:\/\/[^\s]+)/g;
-        var urlMatches = message.match(urlPattern);
+        const urlPattern = /(https?:\/\/[^\s]+)/g;
+        const urlMatches = message.match(urlPattern);
         if (urlMatches && urlMatches.length > MAX_URL_COUNT) {
             setFieldError('message');
             showError('Your message contains too many links. Please reduce the number of links.');
@@ -531,14 +503,14 @@
         try {
             if (typeof grecaptcha !== 'undefined' && window.RECAPTCHA_SITE_KEY) {
                 try {
-                    var token = await grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {action: 'submit'});
+                    const token = await grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {action: 'submit'});
                     document.getElementById('g-recaptcha-response').value = token;
                 } catch (err) {
                     // reCAPTCHA not available
                 }
             }
 
-            var response = await fetch(form.action, {
+            const response = await fetch(form.action, {
                 method: 'POST',
                 body: new FormData(form),
                 headers: {
@@ -552,13 +524,13 @@
                 clearFieldErrors();
                 submitBtn.removeAttribute('aria-busy');
 
-                setTimeout(function() {
+                setTimeout(() => {
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Send Message';
                     clearStatus();
                 }, COOLDOWN_TIME);
             } else {
-                var data = await response.json();
+                const data = await response.json();
                 showError(data.error || 'Oops! There was a problem sending your message. Please try again.');
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Send Message';
