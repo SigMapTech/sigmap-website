@@ -162,7 +162,7 @@ h4 {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    color: var(--text-muted);
+    color: var(--text-secondary);
 }
 
 p {
@@ -177,6 +177,13 @@ a {
 
 a:hover {
     color: var(--accent-hover);
+}
+
+main p a,
+main li a,
+footer p a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
 }
 
 .container {
