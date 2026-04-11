@@ -25,7 +25,7 @@
     <link rel="canonical" href="https://sigmap.tech/">
 
     <!-- Theme Color -->
-    <meta name="theme-color" content="#333333">
+    <meta name="theme-color" content="#080c14">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -38,7 +38,7 @@
 
     <!-- DNS Prefetch for external services -->
     <link rel="dns-prefetch" href="https://formspree.io">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -89,109 +89,300 @@
 </head>
 <body>
 <a href="#main" class="skip-link">Skip to main content</a>
-<header>
-    <h1>Welcome to SigMap OÜ</h1>
-    <p>Your trusted partner in software innovation</p>
-</header>
-<nav aria-label="Main navigation">
-    <a href="#about">About</a>
-    <a href="#services">Services</a>
-    <a href="#contact">Contact</a>
+
+<nav class="site-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+        <a href="#" class="nav-logo">SigMap<span class="logo-dot">.</span></a>
+        <div class="nav-links" id="nav-links">
+            <a href="#about">About</a>
+            <a href="#services">Services</a>
+            <a href="#technologies">Technologies</a>
+            <a href="#contact">Contact</a>
+        </div>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
 </nav>
+
 <main id="main">
-    <section id="about">
-        <h2>About SigMap OÜ</h2>
-        <p>SigMap OÜ is a software development company based in Estonia. We specialize in functional programming,
-            high-quality software solutions, and innovative technology. Our mission is to empower businesses with robust
-            and efficient digital tools.</p>
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-grid" aria-hidden="true"></div>
+        <span class="hero-lambda" aria-hidden="true">&lambda;</span>
+        <div class="hero-content">
+            <p class="hero-label">Functional Programming Consultancy</p>
+            <h1>We build software<br>that <em>composes</em>.</h1>
+            <p class="hero-subtitle">SigMap OÜ crafts robust, elegant software solutions rooted in functional programming principles. Based in Estonia, serving the world.</p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary">Get in Touch</a>
+                <a href="#services" class="btn btn-ghost">Our Services</a>
+            </div>
+            <p class="hero-formula" aria-hidden="true">f &compfn; g &equals; &lambda;x &rarr; f(g(x))</p>
+        </div>
     </section>
-    <section id="services">
-        <h2>Our Services</h2>
-        <p>We provide a wide range of software development services tailored to your needs:</p>
-        <ul>
-            <li>Custom software development</li>
-            <li>Mobile and web application development</li>
-            <li>Functional programming consultancy</li>
-            <li>Technical support and maintenance</li>
-        </ul>
+
+    <!-- About -->
+    <section id="about" class="section">
+        <div class="container">
+            <p class="section-label reveal">01 &mdash; About</p>
+            <h2 class="section-heading reveal">About SigMap OÜ</h2>
+            <p class="lead reveal">SigMap OÜ is a software development company based in Estonia. We specialize in functional programming, high-quality software solutions, and innovative technology. Our mission is to empower businesses with robust and efficient digital tools.</p>
+            <div class="values-row reveal">
+                <div class="value-item">
+                    <span class="value-accent">&lambda;</span>
+                    <h3>Functional First</h3>
+                    <p>We leverage functional programming to build software that is predictable, testable, and correct by construction.</p>
+                </div>
+                <div class="value-item">
+                    <span class="value-accent">&oplus;</span>
+                    <h3>Composable</h3>
+                    <p>Our solutions are built from small, well-defined modules that compose seamlessly into larger systems.</p>
+                </div>
+                <div class="value-item">
+                    <span class="value-accent">&forall;</span>
+                    <h3>End-to-End</h3>
+                    <p>From initial consultancy through development to long-term maintenance, we cover the full lifecycle.</p>
+                </div>
+            </div>
+        </div>
     </section>
-    <section id="contact">
-        <h2>Contact Us</h2>
-        <p>If you have any questions or need assistance, feel free to contact us:</p>
 
-        <!-- Contact Form -->
-        <noscript>
-            <p class="noscript-warning">
-                This contact form requires JavaScript to be enabled. Please enable JavaScript in your browser,
-                or contact us directly at <a href="mailto:info@sigmap.tech">info@sigmap.tech</a>.
-            </p>
-        </noscript>
-        <form action="https://formspree.io/f/movyvqqe" method="POST" id="contact-form" class="contact-form">
-            <div class="form-group">
-                <label for="name">Name *</label>
-                <input type="text" id="name" name="name" required aria-required="true" aria-describedby="form-status">
+    <!-- Services -->
+    <section id="services" class="section section-alt">
+        <div class="container">
+            <p class="section-label reveal">02 &mdash; Services</p>
+            <h2 class="section-heading reveal">What We Do</h2>
+            <p class="section-subtitle reveal">We provide a wide range of software development services tailored to your needs.</p>
+            <div class="services-grid">
+                <article class="service-card reveal">
+                    <div class="service-icon" aria-hidden="true">&lt;/&gt;</div>
+                    <h3>Custom Software Development</h3>
+                    <p>Bespoke solutions engineered for your specific business requirements, built with functional programming principles for reliability and maintainability.</p>
+                </article>
+                <article class="service-card reveal">
+                    <div class="service-icon" aria-hidden="true">&loz;</div>
+                    <h3>Mobile &amp; Web Applications</h3>
+                    <p>Cross-platform applications with polished user experiences, from responsive web apps to native mobile solutions.</p>
+                </article>
+                <article class="service-card reveal">
+                    <div class="service-icon" aria-hidden="true">&lambda;</div>
+                    <h3>Functional Programming Consultancy</h3>
+                    <p>Expert guidance on adopting functional programming in your organization &mdash; from language selection to team training and architecture review.</p>
+                </article>
+                <article class="service-card reveal">
+                    <div class="service-icon" aria-hidden="true">&infin;</div>
+                    <h3>Technical Support &amp; Maintenance</h3>
+                    <p>Ongoing support to keep your systems running smoothly, including monitoring, updates, performance optimization, and incident response.</p>
+                </article>
             </div>
+        </div>
+    </section>
 
-            <div class="form-group">
-                <label for="email">Email *</label>
-                <input type="email" id="email" name="email" required aria-required="true" aria-describedby="form-status">
+    <!-- Technologies -->
+    <section id="technologies" class="section">
+        <div class="container">
+            <p class="section-label reveal">03 &mdash; Technologies</p>
+            <h2 class="section-heading reveal">Our Stack</h2>
+            <p class="section-subtitle reveal">We work with languages designed for correctness, concurrency, and developer productivity.</p>
+            <div class="tech-grid reveal">
+                <div class="tech-item">
+                    <span class="tech-name">Clojure</span>
+                    <span class="tech-desc">Dynamic functional, JVM-powered</span>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-name">Haskell</span>
+                    <span class="tech-desc">Pure functional, strongly typed</span>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-name">Elm</span>
+                    <span class="tech-desc">Reliable web front-ends</span>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-name">Erlang</span>
+                    <span class="tech-desc">Fault-tolerant distributed systems</span>
+                </div>
             </div>
+            <p class="tech-footnote reveal">Plus modern web, mobile, and cloud infrastructure technologies.</p>
+        </div>
+    </section>
 
-            <div class="form-group">
-                <label for="subject">Subject</label>
-                <input type="text" id="subject" name="subject" aria-describedby="form-status">
+    <!-- Contact -->
+    <section id="contact" class="section section-alt">
+        <div class="container">
+            <p class="section-label reveal">04 &mdash; Contact</p>
+            <h2 class="section-heading reveal">Get in Touch</h2>
+            <p class="section-subtitle reveal">Have a project in mind or need functional programming expertise? We'd love to hear from you.</p>
+
+            <div class="contact-grid">
+                <div class="contact-info reveal">
+                    <div class="contact-detail">
+                        <h3>Email</h3>
+                        <a href="mailto:info@sigmap.tech">info@sigmap.tech</a>
+                    </div>
+                    <div class="contact-detail">
+                        <h3>Address</h3>
+                        <p>SigMap OÜ<br>
+                        Idapõllu tee 3-21<br>
+                        74001 Haabneeme alevik<br>
+                        Viimsi vald, Harju maakond<br>
+                        Estonia</p>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrap reveal">
+                    <noscript>
+                        <p class="noscript-warning">
+                            This contact form requires JavaScript to be enabled. Please enable JavaScript in your browser,
+                            or contact us directly at <a href="mailto:info@sigmap.tech">info@sigmap.tech</a>.
+                        </p>
+                    </noscript>
+                    <form action="https://formspree.io/f/movyvqqe" method="POST" id="contact-form" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name *</label>
+                            <input type="text" id="name" name="name" required aria-required="true" aria-describedby="form-status" placeholder="Your name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required aria-required="true" aria-describedby="form-status" placeholder="you@example.com">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" aria-describedby="form-status" placeholder="What is this about?">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message *</label>
+                            <textarea id="message" name="message" rows="5" required aria-required="true" aria-describedby="form-status" placeholder="Tell us about your project..."></textarea>
+                        </div>
+
+                        <!-- Honeypot fields - hidden from real users, catches bots -->
+                        <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
+                        <!-- Additional honeypot with deceptive name that bots often fill -->
+                        <div class="honeypot" aria-hidden="true">
+                            <label for="website">Website</label>
+                            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+
+                        <!-- Google reCAPTCHA v3 (will be populated dynamically) -->
+                        <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+
+                        <button type="submit" id="submit-btn" class="submit-btn">Send Message</button>
+                        <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
+                    </form>
+                </div>
             </div>
-
-            <div class="form-group">
-                <label for="message">Message *</label>
-                <textarea id="message" name="message" rows="5" required aria-required="true" aria-describedby="form-status"></textarea>
-            </div>
-
-            <!-- Honeypot fields - hidden from real users, catches bots -->
-            <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
-            <!-- Additional honeypot with deceptive name that bots often fill -->
-            <div class="honeypot" aria-hidden="true">
-                <label for="website">Website</label>
-                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-            </div>
-
-            <!-- Google reCAPTCHA v3 (will be populated dynamically) -->
-            <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
-
-            <button type="submit" id="submit-btn" class="submit-btn">Send Message</button>
-            <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
-        </form>
-
-        <!-- Contact Information -->
-        <div class="contact-info">
-            <p><strong>Direct Contact:</strong></p>
-            <p>Email: <a href="mailto:info@sigmap.tech">info@sigmap.tech</a></p>
-            <p>Address: SigMap OÜ, Idapõllu tee 3-21, 74001, Haabneeme alevik, Viimsi vald, Harju maakond, Estonia</p>
         </div>
     </section>
 </main>
+
 <footer>
-    <p>&copy; <span id="copyright-year">2026</span> SigMap OÜ - All Rights Reserved</p>
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-about">
+                <a href="#" class="footer-logo">SigMap<span class="logo-dot">.</span></a>
+                <p>Estonian software development company specializing in functional programming and high-quality software solutions.</p>
+            </div>
+            <div class="footer-nav">
+                <h4>Navigation</h4>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#technologies">Technologies</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <div class="footer-contact">
+                <h4>Contact</h4>
+                <a href="mailto:info@sigmap.tech">info@sigmap.tech</a>
+                <p>Haabneeme, Estonia</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; <span id="copyright-year">2026</span> SigMap OÜ. All rights reserved.</p>
+        </div>
+    </div>
 </footer>
+
+<!-- Copyright Year -->
 <script>document.getElementById('copyright-year').textContent = new Date().getFullYear();</script>
+
+<!-- Navigation & Scroll Animations -->
+<script>
+(function() {
+    // Mobile navigation toggle
+    var navToggle = document.getElementById('nav-toggle');
+    var navLinks = document.getElementById('nav-links');
+
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', function() {
+            var expanded = navToggle.getAttribute('aria-expanded') === 'true';
+            navToggle.setAttribute('aria-expanded', String(!expanded));
+            navLinks.classList.toggle('open');
+        });
+
+        var links = navLinks.querySelectorAll('a');
+        for (var i = 0; i < links.length; i++) {
+            links[i].addEventListener('click', function() {
+                navToggle.setAttribute('aria-expanded', 'false');
+                navLinks.classList.remove('open');
+            });
+        }
+    }
+
+    // Sticky nav background on scroll
+    var siteNav = document.querySelector('.site-nav');
+    if (siteNav) {
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                siteNav.classList.add('scrolled');
+            } else {
+                siteNav.classList.remove('scrolled');
+            }
+        }, { passive: true });
+    }
+
+    // Scroll reveal animations
+    if ('IntersectionObserver' in window) {
+        var observer = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        var reveals = document.querySelectorAll('.reveal');
+        for (var j = 0; j < reveals.length; j++) {
+            observer.observe(reveals[j]);
+        }
+    } else {
+        // Fallback: show everything if IntersectionObserver not supported
+        var fallbacks = document.querySelectorAll('.reveal');
+        for (var k = 0; k < fallbacks.length; k++) {
+            fallbacks[k].classList.add('visible');
+        }
+    }
+})();
+</script>
 
 <!-- Contact Form Script -->
 <script>
 (function() {
-    const form = document.getElementById('contact-form');
-    const submitBtn = document.getElementById('submit-btn');
-    const formStatus = document.getElementById('form-status');
+    var form = document.getElementById('contact-form');
+    var submitBtn = document.getElementById('submit-btn');
+    var formStatus = document.getElementById('form-status');
 
     // Configuration constants
-    const COOLDOWN_TIME = 60000;      // 60 seconds between submissions
-    const MIN_SUBMIT_TIME = 3000;     // Minimum 3 seconds before form can be submitted
-    const MAX_URL_COUNT = 3;          // Maximum URLs allowed in message
-    const MIN_MESSAGE_LENGTH = 10;    // Minimum message character length
+    var COOLDOWN_TIME = 60000;      // 60 seconds between submissions
+    var MIN_SUBMIT_TIME = 3000;     // Minimum 3 seconds before form can be submitted
+    var MAX_URL_COUNT = 3;          // Maximum URLs allowed in message
+    var MIN_MESSAGE_LENGTH = 10;    // Minimum message character length
 
-    const formLoadTime = Date.now();  // Track when form loaded
+    var formLoadTime = Date.now();  // Track when form loaded
 
     // Form field references for aria-invalid handling
-    const formFields = {
+    var formFields = {
         name: form.querySelector('#name'),
         email: form.querySelector('#email'),
         message: form.querySelector('#message')
@@ -201,14 +392,13 @@
      * Clear aria-invalid attribute from all form fields
      */
     function clearFieldErrors() {
-        Object.values(formFields).forEach(field => {
+        Object.values(formFields).forEach(function(field) {
             if (field) field.removeAttribute('aria-invalid');
         });
     }
 
     /**
      * Mark a specific field as invalid for accessibility
-     * @param {string} fieldName - The name of the field to mark invalid
      */
     function setFieldError(fieldName) {
         if (formFields[fieldName]) {
@@ -218,7 +408,6 @@
 
     /**
      * Display error message with proper accessibility attributes
-     * @param {string} message - The error message to display
      */
     function showError(message) {
         formStatus.textContent = message;
@@ -228,7 +417,6 @@
 
     /**
      * Display info message
-     * @param {string} message - The info message to display
      */
     function showInfo(message) {
         formStatus.textContent = message;
@@ -238,7 +426,6 @@
 
     /**
      * Display success message
-     * @param {string} message - The success message to display
      */
     function showSuccess(message) {
         formStatus.textContent = message;
@@ -258,12 +445,11 @@
     // Check if user is in cooldown period
     function isInCooldown() {
         try {
-            const lastSubmit = localStorage.getItem('lastFormSubmit');
+            var lastSubmit = localStorage.getItem('lastFormSubmit');
             if (!lastSubmit) return false;
-            const timeSince = Date.now() - parseInt(lastSubmit);
+            var timeSince = Date.now() - parseInt(lastSubmit);
             return timeSince < COOLDOWN_TIME;
         } catch (err) {
-            // If localStorage is not available, skip cooldown check
             return false;
         }
     }
@@ -271,9 +457,9 @@
     // Get remaining cooldown time
     function getRemainingCooldown() {
         try {
-            const lastSubmit = localStorage.getItem('lastFormSubmit');
+            var lastSubmit = localStorage.getItem('lastFormSubmit');
             if (!lastSubmit) return 0;
-            const timeSince = Date.now() - parseInt(lastSubmit);
+            var timeSince = Date.now() - parseInt(lastSubmit);
             return Math.ceil((COOLDOWN_TIME - timeSince) / 1000);
         } catch (err) {
             return 0;
@@ -282,12 +468,11 @@
 
     // Check cooldown on page load
     if (isInCooldown()) {
-        const remaining = getRemainingCooldown();
+        var remaining = getRemainingCooldown();
         submitBtn.disabled = true;
-        showInfo(`Please wait ${remaining} seconds before submitting again.`);
+        showInfo('Please wait ' + remaining + ' seconds before submitting again.');
 
-        // Re-enable after cooldown
-        setTimeout(() => {
+        setTimeout(function() {
             submitBtn.disabled = false;
             clearStatus();
         }, remaining * 1000);
@@ -296,76 +481,64 @@
     form.addEventListener('submit', async function(e) {
         e.preventDefault();
 
-        // Clear previous field errors
         clearFieldErrors();
 
-        // Check cooldown
         if (isInCooldown()) {
-            const remaining = getRemainingCooldown();
-            showError(`Please wait ${remaining} seconds before submitting again.`);
+            var cooldownRemaining = getRemainingCooldown();
+            showError('Please wait ' + cooldownRemaining + ' seconds before submitting again.');
             return;
         }
 
-        // Time-based validation - reject submissions that are too fast
-        const timeSinceLoad = Date.now() - formLoadTime;
+        var timeSinceLoad = Date.now() - formLoadTime;
         if (timeSinceLoad < MIN_SUBMIT_TIME) {
             showError('Please take a moment to review your message.');
             return;
         }
 
-        // Check all honeypot fields
-        const honeypot1 = form.querySelector('[name="_gotcha"]');
-        const honeypot2 = form.querySelector('[name="website"]');
+        var honeypot1 = form.querySelector('[name="_gotcha"]');
+        var honeypot2 = form.querySelector('[name="website"]');
         if ((honeypot1 && honeypot1.value !== '') || (honeypot2 && honeypot2.value !== '')) {
-            // Silently reject spam submission
             return;
         }
 
-        // Additional validation - check for suspicious patterns
-        const message = form.querySelector('[name="message"]').value;
+        var message = form.querySelector('[name="message"]').value;
 
-        // Check if message contains excessive links (common in spam)
-        const urlPattern = /(https?:\/\/[^\s]+)/g;
-        const urlMatches = message.match(urlPattern);
+        var urlPattern = /(https?:\/\/[^\s]+)/g;
+        var urlMatches = message.match(urlPattern);
         if (urlMatches && urlMatches.length > MAX_URL_COUNT) {
             setFieldError('message');
             showError('Your message contains too many links. Please reduce the number of links.');
             return;
         }
 
-        // Check for very short messages (likely spam)
         if (message.trim().length < MIN_MESSAGE_LENGTH) {
             setFieldError('message');
             showError('Please provide a more detailed message.');
             return;
         }
 
-        // Set cooldown
         try {
             localStorage.setItem('lastFormSubmit', Date.now().toString());
         } catch (err) {
-            // localStorage not available, continue without cooldown tracking
+            // localStorage not available
         }
 
-        // Disable button and show loading state
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
         submitBtn.setAttribute('aria-busy', 'true');
         showInfo('Sending your message...');
 
         try {
-            // Generate reCAPTCHA token if available
             if (typeof grecaptcha !== 'undefined' && window.RECAPTCHA_SITE_KEY) {
                 try {
-                    const token = await grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {action: 'submit'});
+                    var token = await grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {action: 'submit'});
                     document.getElementById('g-recaptcha-response').value = token;
                 } catch (err) {
-                    // reCAPTCHA not available, continue without it
+                    // reCAPTCHA not available
                 }
             }
 
-            // Submit form via AJAX
-            const response = await fetch(form.action, {
+            var response = await fetch(form.action, {
                 method: 'POST',
                 body: new FormData(form),
                 headers: {
@@ -374,28 +547,24 @@
             });
 
             if (response.ok) {
-                // Success
                 showSuccess('Thank you! Your message has been sent successfully.');
                 form.reset();
                 clearFieldErrors();
                 submitBtn.removeAttribute('aria-busy');
 
-                // Re-enable button after cooldown
-                setTimeout(() => {
+                setTimeout(function() {
                     submitBtn.disabled = false;
                     submitBtn.textContent = 'Send Message';
                     clearStatus();
                 }, COOLDOWN_TIME);
             } else {
-                // Server error
-                const data = await response.json();
+                var data = await response.json();
                 showError(data.error || 'Oops! There was a problem sending your message. Please try again.');
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Send Message';
                 submitBtn.removeAttribute('aria-busy');
             }
         } catch (error) {
-            // Network error
             showError('Network error. Please check your connection and try again.');
             submitBtn.disabled = false;
             submitBtn.textContent = 'Send Message';
