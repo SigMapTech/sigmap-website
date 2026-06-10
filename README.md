@@ -13,32 +13,52 @@ This is a static website hosted on GitHub Pages, serving as the corporate homepa
 ## Technology Stack
 
 - **HTML5** - Semantic markup
-- **CSS3** - Responsive design with mobile-first approach
+- **CSS3** - Dark theme with design tokens, responsive mobile-first approach
+- **Vanilla JavaScript** - No frameworks or build tools
+- **Google Fonts** - DM Sans, Instrument Serif, JetBrains Mono
+- **Formspree** - Contact form backend
 - **GitHub Pages** - Static site hosting
+- **GitHub Actions** - Quality checks (HTML/CSS validation, accessibility, Lighthouse, link checking) and sitemap maintenance
 - **Custom Domain** - sigmap.tech via CNAME
 
 ## Project Structure
 
 ```
 sigmap-website/
-├── index.html              # Main company homepage
-├── style.css               # Global stylesheet
-├── CNAME                   # GitHub Pages custom domain config
-├── LICENSE                 # MIT License
-├── README.md              # This file
-├── .gitignore             # Git ignore rules
-└── 2048/
-    └── privacy-policy.html # Privacy policy for 2048 game
+├── index.html                 # Main company homepage
+├── style.css                  # Global stylesheet
+├── 2048/
+│   └── privacy-policy.html    # Privacy policy for 2048 game
+├── .github/
+│   └── workflows/
+│       ├── quality-checks.yml # HTML/CSS validation, accessibility, Lighthouse, link checks
+│       └── update-sitemap.yml # Auto-updates sitemap lastmod dates on push to main
+├── .htmlvalidate.json         # html-validate config (shared by CI and local runs)
+├── .stylelintrc.json          # stylelint config (shared by CI and local runs)
+├── lighthouserc.js            # Lighthouse CI config
+├── CNAME                      # GitHub Pages custom domain config
+├── robots.txt                 # SEO crawler configuration
+├── sitemap.xml                # XML sitemap for search engines
+├── favicon.svg                # SVG favicon
+├── favicon.png                # PNG favicon (32x32)
+├── apple-touch-icon.png       # Apple touch icon (180x180)
+├── og-image.png               # Open Graph / Twitter share image (1200x630)
+├── CLAUDE.md                  # AI assistant guide
+├── LICENSE                    # MIT License
+├── README.md                  # This file
+└── .gitignore                 # Git ignore rules
 ```
 
 ## Features
 
 - ✅ Fully responsive design (mobile, tablet, desktop)
-- ✅ SEO optimized with meta tags and Open Graph support
-- ✅ Accessibility-friendly with ARIA labels and semantic HTML
-- ✅ Smooth scrolling navigation
-- ✅ Fast loading (no external dependencies)
+- ✅ SEO optimized with meta tags, Open Graph share image, and JSON-LD structured data
+- ✅ Accessibility-friendly with ARIA labels, semantic HTML, and WCAG AA color contrast
+- ✅ Smooth scrolling navigation with reduced-motion support
+- ✅ Lightweight static site (only external dependencies: Google Fonts and Formspree)
+- ✅ Spam-protected contact form (honeypots, rate limiting, time-based checks)
 - ✅ Privacy policy for 2048 game product
+- ✅ Automated quality checks via GitHub Actions
 
 ## Local Development
 
@@ -161,16 +181,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Maintenance Notes
 
-### Adding Favicons
+### Brand Images
 
-The site references favicon files that should be added to the root directory:
-- `/favicon.png` - Standard favicon (32x32 or 192x192)
+The repository includes all referenced brand images, matching the dark/emerald design system:
+- `/favicon.svg` - Vector favicon (dark rounded square with emerald lambda)
+- `/favicon.png` - Raster fallback favicon (32x32)
 - `/apple-touch-icon.png` - Apple touch icon (180x180)
+- `/og-image.png` - Social share image for Open Graph / Twitter Cards (1200x630)
 
-To add favicons:
-1. Create favicon files in the appropriate sizes
-2. Place them in the root directory
-3. The HTML already includes the necessary `<link>` tags
+If the branding changes, regenerate all four together so they stay consistent.
 
 ### Copyright Year
 
@@ -178,15 +197,14 @@ The footer copyright year is automatically set to the current year using JavaScr
 
 ## Recent Updates
 
-- ✅ Extracted CSS to external stylesheet
-- ✅ Fixed footer layout (removed fixed positioning)
-- ✅ Added comprehensive SEO metadata
-- ✅ Implemented mobile responsive design
-- ✅ Added accessibility improvements (ARIA labels)
-- ✅ Fixed external link security (rel="noopener noreferrer")
-- ✅ Updated privacy policy page with consistent styling
-- ✅ Added navigation between main site and privacy policy
+- ✅ Redesigned site with dark theme, emerald accent, and lambda calculus aesthetic
+- ✅ Restyled 2048 privacy policy page to match the new design system
+- ✅ Added Open Graph / Twitter share image and refreshed favicons to new branding
+- ✅ Fixed WCAG AA color contrast for muted text
+- ✅ Added comprehensive SEO metadata and JSON-LD structured data
+- ✅ Added GitHub Actions quality checks (validation, accessibility, Lighthouse, links)
+- ✅ Added spam protection to the contact form
 
 ---
 
-**Last Updated:** December 2025
+**Last Updated:** June 2026
