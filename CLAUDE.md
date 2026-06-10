@@ -14,7 +14,8 @@ This is the official corporate website for **SigMap OÜ**, an Estonian software 
 Tech Stack:     HTML5, CSS3, Vanilla JavaScript (no frameworks/build tools)
 Hosting:        GitHub Pages with custom domain
 Form Backend:   Formspree (form ID: movyvqqe)
-Fonts:          Google Fonts (Inter)
+Fonts:          Google Fonts (DM Sans, Instrument Serif, JetBrains Mono)
+Design:         Dark theme, emerald accent, lambda calculus aesthetic
 ```
 
 ## Project Structure
@@ -29,12 +30,16 @@ sigmap-website/
 │   └── workflows/
 │       ├── quality-checks.yml # HTML/CSS validation, accessibility, Lighthouse, link checks
 │       └── update-sitemap.yml # Auto-updates sitemap lastmod dates on push to main
+├── .htmlvalidate.json         # html-validate config (shared by CI and local runs)
+├── .stylelintrc.json          # stylelint config (shared by CI and local runs)
+├── lighthouserc.js            # Lighthouse CI config
 ├── CNAME                      # GitHub Pages custom domain config (sigmap.tech)
 ├── robots.txt                 # SEO crawler configuration
 ├── sitemap.xml                # XML sitemap for search engines
-├── favicon.svg                # SVG favicon
-├── favicon.png                # PNG favicon
+├── favicon.svg                # SVG favicon (dark rounded square, emerald lambda)
+├── favicon.png                # PNG favicon (32x32)
 ├── apple-touch-icon.png       # Apple touch icon (180x180)
+├── og-image.png               # Open Graph / Twitter share image (1200x630)
 ├── LICENSE                    # MIT License
 ├── README.md                  # Project documentation
 ├── CLAUDE.md                  # AI assistant guide (this file)
@@ -84,25 +89,27 @@ git push origin main
   - Include `aria-live="polite"` for status messages
 - **SEO Requirements:**
   - Canonical URLs
-  - Open Graph meta tags (og:title, og:description, og:type, og:url)
-  - Twitter Card meta tags
+  - Open Graph meta tags (og:title, og:description, og:type, og:url, og:image)
+  - Twitter Card meta tags (summary_large_image with twitter:image)
   - JSON-LD structured data (schema.org Organization)
   - Meta descriptions and keywords
 
 ### CSS Standards
 
+- **Design Tokens:** All colors, spacing, radii, and shadows are defined as CSS custom properties in `:root` at the top of `style.css` -- always use the variables, never hardcode colors
 - **Mobile-First Approach:** Base styles for mobile, enhance with media queries
 - **Responsive Breakpoints:**
   - `768px` - Tablets
   - `480px` - Mobile phones
-- **Color Palette:**
-  - Primary: `#333` (dark charcoal)
-  - Accent: `#0066cc` (blue)
-  - Success: `#2e7d32` (green)
-  - Error: `#c62828` (red)
-  - Info: `#1976d2` (light blue)
-- **Transitions:** Use `0.2s` for smooth interactions
-- **Focus States:** Always include clear focus indicators for accessibility
+- **Color Palette (dark theme):**
+  - Backgrounds: `--bg-deep: #06080d`, `--bg-primary: #0a0f1a`, `--bg-surface: #111827`, `--bg-card: #131c2b`, `--bg-elevated: #1a2332`
+  - Accent: `--accent: #34d399` (emerald), `--accent-secondary: #818cf8` (indigo)
+  - Text: `--text-primary: #f1f5f9`, `--text-secondary: #94a3b8`, `--text-muted: #7b8aa3`
+  - Status: `--color-success: #34d399`, `--color-error: #f87171`, `--color-info: #60a5fa`
+- **Contrast:** Text colors must meet WCAG AA (4.5:1) against the backgrounds they appear on -- CI runs axe with wcag2aa tags
+- **Typography:** `Instrument Serif` for headings (h1-h3), `DM Sans` for body/UI, `JetBrains Mono` for labels and code accents
+- **Transitions:** Use `0.2s` for smooth interactions; respect `prefers-reduced-motion`
+- **Focus States:** Always include clear focus indicators for accessibility (`--focus-ring`)
 
 ### JavaScript Standards
 
@@ -230,7 +237,7 @@ Edit `/2048/privacy-policy.html`:
 |---------|---------|---------------|
 | GitHub Pages | Hosting | Automatic from main branch |
 | Formspree | Contact form backend | Form ID: `movyvqqe` |
-| Google Fonts | Typography (Inter) | CDN link in HTML head |
+| Google Fonts | Typography (DM Sans, Instrument Serif, JetBrains Mono) | CDN link in HTML head |
 
 ## Important Notes for AI Assistants
 
@@ -251,4 +258,4 @@ Edit `/2048/privacy-policy.html`:
 
 ---
 
-*Last Updated: March 2026*
+*Last Updated: June 2026*

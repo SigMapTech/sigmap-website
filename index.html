@@ -15,11 +15,16 @@
     <meta property="og:description" content="Your trusted partner in software innovation. Specializing in functional programming and high-quality software solutions.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sigmap.tech">
+    <meta property="og:image" content="https://sigmap.tech/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="SigMap - Functional Programming Consultancy">
 
     <!-- Twitter Card Meta Tags -->
-    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="SigMap OÜ - Software Solutions">
     <meta name="twitter:description" content="Your trusted partner in software innovation. Specializing in functional programming and high-quality software solutions.">
+    <meta name="twitter:image" content="https://sigmap.tech/og-image.png">
 
     <!-- Canonical URL -->
     <link rel="canonical" href="https://sigmap.tech/">
@@ -92,7 +97,7 @@
 
 <nav class="site-nav" aria-label="Main navigation">
     <div class="nav-inner">
-        <a href="#" class="nav-logo">SigMap<span class="logo-dot">.</span></a>
+        <a href="/" class="nav-logo">SigMap<span class="logo-dot">.</span></a>
         <div class="nav-links" id="nav-links">
             <a href="#about">About</a>
             <a href="#services">Services</a>
@@ -266,9 +271,6 @@
                             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                         </div>
 
-                        <!-- Google reCAPTCHA v3 (will be populated dynamically) -->
-                        <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
-
                         <button type="submit" id="submit-btn" class="submit-btn">Send Message</button>
                         <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
                     </form>
@@ -282,7 +284,7 @@
     <div class="container">
         <div class="footer-grid">
             <div class="footer-about">
-                <a href="#" class="footer-logo">SigMap<span class="logo-dot">.</span></a>
+                <a href="/" class="footer-logo">SigMap<span class="logo-dot">.</span></a>
                 <p>Estonian software development company specializing in functional programming and high-quality software solutions.</p>
             </div>
             <div class="footer-nav">
@@ -420,7 +422,7 @@
         try {
             const lastSubmit = localStorage.getItem('lastFormSubmit');
             if (!lastSubmit) return false;
-            const timeSince = Date.now() - parseInt(lastSubmit);
+            const timeSince = Date.now() - parseInt(lastSubmit, 10);
             return timeSince < COOLDOWN_TIME;
         } catch (err) {
             return false;
@@ -431,7 +433,7 @@
         try {
             const lastSubmit = localStorage.getItem('lastFormSubmit');
             if (!lastSubmit) return 0;
-            const timeSince = Date.now() - parseInt(lastSubmit);
+            const timeSince = Date.now() - parseInt(lastSubmit, 10);
             return Math.ceil((COOLDOWN_TIME - timeSince) / 1000);
         } catch (err) {
             return 0;
@@ -504,7 +506,14 @@
             if (typeof grecaptcha !== 'undefined' && window.RECAPTCHA_SITE_KEY) {
                 try {
                     const token = await grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {action: 'submit'});
-                    document.getElementById('g-recaptcha-response').value = token;
+                    let recaptchaInput = form.querySelector('input[name="g-recaptcha-response"]');
+                    if (!recaptchaInput) {
+                        recaptchaInput = document.createElement('input');
+                        recaptchaInput.type = 'hidden';
+                        recaptchaInput.name = 'g-recaptcha-response';
+                        form.appendChild(recaptchaInput);
+                    }
+                    recaptchaInput.value = token;
                 } catch (err) {
                     // reCAPTCHA not available
                 }
