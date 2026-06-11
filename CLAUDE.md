@@ -14,7 +14,7 @@ This is the official corporate website for **SigMap OÜ**, an Estonian software 
 Tech Stack:     HTML5, CSS3, Vanilla JavaScript (no frameworks/build tools)
 Hosting:        GitHub Pages with custom domain
 Form Backend:   Formspree (form ID: movyvqqe)
-Fonts:          Google Fonts (DM Sans, Instrument Serif, JetBrains Mono)
+Fonts:          Self-hosted woff2 in /fonts/ (DM Sans, Instrument Serif, JetBrains Mono)
 Design:         Dark theme, emerald accent, lambda calculus aesthetic
 ```
 
@@ -30,6 +30,7 @@ sigmap-website/
 │   └── workflows/
 │       ├── quality-checks.yml # HTML/CSS validation, accessibility, Lighthouse, link checks
 │       └── update-sitemap.yml # Auto-updates sitemap lastmod dates on push to main
+├── fonts/                     # Self-hosted woff2 fonts (latin + latin-ext subsets)
 ├── .htmlvalidate.json         # html-validate config (shared by CI and local runs)
 ├── .stylelintrc.json          # stylelint config (shared by CI and local runs)
 ├── lighthouserc.js            # Lighthouse CI config
@@ -237,7 +238,6 @@ Edit `/2048/privacy-policy.html`:
 |---------|---------|---------------|
 | GitHub Pages | Hosting | Automatic from main branch |
 | Formspree | Contact form backend | Form ID: `movyvqqe` |
-| Google Fonts | Typography (DM Sans, Instrument Serif, JetBrains Mono) | CDN link in HTML head |
 
 ## Important Notes for AI Assistants
 

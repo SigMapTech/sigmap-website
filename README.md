@@ -15,7 +15,7 @@ This is a static website hosted on GitHub Pages, serving as the corporate homepa
 - **HTML5** - Semantic markup
 - **CSS3** - Dark theme with design tokens, responsive mobile-first approach
 - **Vanilla JavaScript** - No frameworks or build tools
-- **Google Fonts** - DM Sans, Instrument Serif, JetBrains Mono
+- **Self-hosted Fonts** - DM Sans, Instrument Serif, JetBrains Mono (woff2 in `/fonts/`)
 - **Formspree** - Contact form backend
 - **GitHub Pages** - Static site hosting
 - **GitHub Actions** - Quality checks (HTML/CSS validation, accessibility, Lighthouse, link checking) and sitemap maintenance
@@ -55,7 +55,7 @@ sigmap-website/
 - ✅ SEO optimized with meta tags, Open Graph share image, and JSON-LD structured data
 - ✅ Accessibility-friendly with ARIA labels, semantic HTML, and WCAG AA color contrast
 - ✅ Smooth scrolling navigation with reduced-motion support
-- ✅ Lightweight static site (only external dependencies: Google Fonts and Formspree)
+- ✅ Lightweight static site (only external dependency: Formspree)
 - ✅ Spam-protected contact form (honeypots, rate limiting, time-based checks)
 - ✅ Privacy policy for 2048 game product
 - ✅ Automated quality checks via GitHub Actions
