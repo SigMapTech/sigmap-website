@@ -23,6 +23,7 @@ Design:         Dark theme, emerald accent, lambda calculus aesthetic
 ```
 sigmap-website/
 ├── index.html                 # Main landing page (company info, services, contact form)
+├── 404.html                   # Branded not-found page (served automatically by GitHub Pages)
 ├── style.css                  # Global stylesheet (mobile-first, responsive)
 ├── 2048/
 │   └── privacy-policy.html    # Privacy policy for 2048 mobile game

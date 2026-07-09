@@ -1096,9 +1096,11 @@ footer {
     }
 }
 
-/* ---- Tablet (768px) ---- */
+/* ---- Tablet (768px) ----
+   Prefix notation instead of range syntax (width <= 768px) so browsers
+   without range support (Safari < 16.4, Chrome < 104) still get mobile styles */
 
-@media (width <= 768px) {
+@media (max-width: 768px) {
     .nav-links {
         display: none;
         position: absolute;
@@ -1173,10 +1175,10 @@ footer {
 
 /* ---- Mobile (480px) ---- */
 
-@media (width <= 480px) {
+@media (max-width: 480px) {
     .hero {
         padding: 4.5rem 1.25rem 2.5rem;
-        min-height: auto;
+        min-height: 85vh;
         min-height: 85dvh;
     }
 
