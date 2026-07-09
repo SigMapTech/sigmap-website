@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Content Security Policy (GitHub Pages cannot send response headers, so it lives in a meta tag).
+         'unsafe-inline' is required by the inline scripts/styles below; connect-src covers the Formspree
+         form submission. If you enable reCAPTCHA, add https://www.google.com and https://www.gstatic.com
+         to script-src and frame-src. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://formspree.io; object-src 'none'; base-uri 'self'">
     <title>SigMap OÜ - Software Solutions</title>
 
     <!-- SEO Meta Tags -->
@@ -14,7 +19,7 @@
     <meta property="og:title" content="SigMap OÜ - Software Solutions">
     <meta property="og:description" content="Your trusted partner in software innovation. Specializing in functional programming and high-quality software solutions.">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://sigmap.tech">
+    <meta property="og:url" content="https://sigmap.tech/">
     <meta property="og:image" content="https://sigmap.tech/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -29,8 +34,8 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://sigmap.tech/">
 
-    <!-- Theme Color -->
-    <meta name="theme-color" content="#080c14">
+    <!-- Theme Color (matches --bg-deep in style.css) -->
+    <meta name="theme-color" content="#06080d">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg">
@@ -42,11 +47,21 @@
     <link rel="preload" href="/fonts/instrument-serif-latin.woff2" as="font" type="font/woff2" crossorigin>
     <link rel="preload" href="/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
 
-    <!-- DNS Prefetch for external services -->
-    <link rel="dns-prefetch" href="https://formspree.io">
+    <!-- Preconnect for external services -->
+    <link rel="preconnect" href="https://formspree.io" crossorigin>
 
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
+
+    <!-- Scroll-reveal fallback: without JavaScript the .reveal elements would stay at opacity 0 -->
+    <noscript>
+        <style>
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        </style>
+    </noscript>
 
     <!-- Google reCAPTCHA v3 -->
     <!-- To enable reCAPTCHA protection:
@@ -56,6 +71,8 @@
          4. Get your Site Key
          5. Replace YOUR_RECAPTCHA_SITE_KEY below with your actual key
          6. Add the Secret Key to your Formspree form settings
+         7. Add https://www.google.com and https://www.gstatic.com to the CSP meta tag
+            (script-src and frame-src) at the top of this file
     -->
     <!-- <script src="https://www.google.com/recaptcha/api.js?render=YOUR_RECAPTCHA_SITE_KEY"></script> -->
 
@@ -491,12 +508,6 @@
             return;
         }
 
-        try {
-            localStorage.setItem('lastFormSubmit', Date.now().toString());
-        } catch (err) {
-            // localStorage not available
-        }
-
         submitBtn.disabled = true;
         submitBtn.textContent = 'Sending...';
         submitBtn.setAttribute('aria-busy', 'true');
@@ -528,9 +539,17 @@
             });
 
             if (response.ok) {
+                // Start the cooldown only once the message has actually been sent
+                try {
+                    localStorage.setItem('lastFormSubmit', Date.now().toString());
+                } catch (err) {
+                    // localStorage not available
+                }
+
                 showSuccess('Thank you! Your message has been sent successfully.');
                 form.reset();
                 clearFieldErrors();
+                submitBtn.textContent = 'Message Sent';
                 submitBtn.removeAttribute('aria-busy');
 
                 setTimeout(() => {
@@ -539,8 +558,12 @@
                     clearStatus();
                 }, COOLDOWN_TIME);
             } else {
-                const data = await response.json();
-                showError(data.error || 'Oops! There was a problem sending your message. Please try again.');
+                // Formspree returns errors as {"errors": [{"message": ...}, ...]}
+                const data = await response.json().catch(() => null);
+                const errorMessage = data && Array.isArray(data.errors)
+                    ? data.errors.map((item) => item.message).filter(Boolean).join(' ')
+                    : '';
+                showError(errorMessage || 'Oops! There was a problem sending your message. Please try again.');
                 submitBtn.disabled = false;
                 submitBtn.textContent = 'Send Message';
                 submitBtn.removeAttribute('aria-busy');
