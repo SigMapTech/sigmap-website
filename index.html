@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Content Security Policy (GitHub Pages cannot send response headers, so it lives in a meta tag).
-         'unsafe-inline' is required by the inline scripts/styles below; connect-src covers the Formspree
-         form submission. If you enable reCAPTCHA, add https://www.google.com and https://www.gstatic.com
-         to script-src and frame-src. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://formspree.io; object-src 'none'; base-uri 'self'">
+         Scripts live in main.js and contact-form.js, so script-src needs no 'unsafe-inline' (the JSON-LD
+         block is data, not script). style-src keeps 'unsafe-inline' for the <noscript> style below.
+         connect-src and form-action cover the Formspree submission (fetch with JS, plain POST without).
+         If you enable reCAPTCHA, add https://www.google.com and https://www.gstatic.com to script-src
+         and frame-src. -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; object-src 'none'; base-uri 'self'">
     <title>SigMap OÜ - Software Solutions</title>
 
     <!-- SEO Meta Tags -->
@@ -254,9 +256,9 @@
 
                 <div class="contact-form-wrap reveal">
                     <noscript>
-                        <p class="noscript-warning">
-                            This contact form requires JavaScript to be enabled. Please enable JavaScript in your browser,
-                            or contact us directly at <a href="mailto:info@sigmap.tech">info@sigmap.tech</a>.
+                        <p class="noscript-note">
+                            JavaScript is off, so after you send the form you will land on a Formspree confirmation page.
+                            You can also email us directly at <a href="mailto:info@sigmap.tech">info@sigmap.tech</a>.
                         </p>
                     </noscript>
                     <form action="https://formspree.io/f/movyvqqe" method="POST" id="contact-form" class="contact-form">
@@ -277,16 +279,14 @@
 
                         <div class="form-group">
                             <label for="message">Message *</label>
-                            <textarea id="message" name="message" rows="5" required aria-required="true" aria-describedby="form-status" placeholder="Tell us about your project..."></textarea>
+                            <textarea id="message" name="message" rows="5" required aria-required="true" aria-describedby="form-status" minlength="10" placeholder="Tell us about your project..."></textarea>
                         </div>
 
-                        <!-- Honeypot fields - hidden from real users, catches bots -->
+                        <!-- Email subject for the Formspree notification (the visitor's own subject is sent as a field) -->
+                        <input type="hidden" name="_subject" value="New message via sigmap.tech">
+
+                        <!-- Honeypot - hidden from real users; Formspree discards submissions that fill it -->
                         <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
-                        <!-- Additional honeypot with deceptive name that bots often fill -->
-                        <div class="honeypot" aria-hidden="true">
-                            <label for="website">Website</label>
-                            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
-                        </div>
 
                         <button type="submit" id="submit-btn" class="submit-btn">Send Message</button>
                         <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
@@ -304,15 +304,15 @@
                 <a href="/" class="footer-logo">SigMap<span class="logo-dot">.</span></a>
                 <p>Estonian software development company specializing in functional programming and high-quality software solutions.</p>
             </div>
-            <div class="footer-nav">
-                <h4>Navigation</h4>
+            <nav class="footer-nav" aria-label="Footer navigation">
+                <h2>Navigation</h2>
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
                 <a href="#technologies">Technologies</a>
                 <a href="#contact">Contact</a>
-            </div>
+            </nav>
             <div class="footer-contact">
-                <h4>Contact</h4>
+                <h2>Contact</h2>
                 <a href="mailto:info@sigmap.tech">info@sigmap.tech</a>
                 <p>Haabneeme, Estonia</p>
             </div>
@@ -323,259 +323,7 @@
     </div>
 </footer>
 
-<!-- Copyright Year -->
-<script>document.getElementById('copyright-year').textContent = new Date().getFullYear();</script>
-
-<!-- Navigation & Scroll Animations -->
-<script>
-(() => {
-    // Mobile navigation toggle
-    const navToggle = document.getElementById('nav-toggle');
-    const navLinks = document.getElementById('nav-links');
-
-    if (navToggle && navLinks) {
-        navToggle.addEventListener('click', () => {
-            const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-            navToggle.setAttribute('aria-expanded', String(!expanded));
-            navLinks.classList.toggle('open');
-        });
-
-        for (const link of navLinks.querySelectorAll('a')) {
-            link.addEventListener('click', () => {
-                navToggle.setAttribute('aria-expanded', 'false');
-                navLinks.classList.remove('open');
-            });
-        }
-    }
-
-    // Sticky nav background on scroll
-    const siteNav = document.querySelector('.site-nav');
-    if (siteNav) {
-        window.addEventListener('scroll', () => {
-            siteNav.classList.toggle('scrolled', window.scrollY > 50);
-        }, { passive: true });
-    }
-
-    // Scroll reveal animations
-    if ('IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
-            for (const entry of entries) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            }
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
-        for (const el of document.querySelectorAll('.reveal')) {
-            observer.observe(el);
-        }
-    } else {
-        for (const el of document.querySelectorAll('.reveal')) {
-            el.classList.add('visible');
-        }
-    }
-})();
-</script>
-
-<!-- Contact Form Script -->
-<script>
-(() => {
-    const form = document.getElementById('contact-form');
-    const submitBtn = document.getElementById('submit-btn');
-    const formStatus = document.getElementById('form-status');
-
-    // Configuration constants
-    const COOLDOWN_TIME = 60000;      // 60 seconds between submissions
-    const MIN_SUBMIT_TIME = 3000;     // Minimum 3 seconds before form can be submitted
-    const MAX_URL_COUNT = 3;          // Maximum URLs allowed in message
-    const MIN_MESSAGE_LENGTH = 10;    // Minimum message character length
-
-    const formLoadTime = Date.now();  // Track when form loaded
-
-    // Form field references for aria-invalid handling
-    const formFields = {
-        name: form.querySelector('#name'),
-        email: form.querySelector('#email'),
-        message: form.querySelector('#message')
-    };
-
-    const clearFieldErrors = () => {
-        Object.values(formFields).forEach((field) => {
-            if (field) field.removeAttribute('aria-invalid');
-        });
-    };
-
-    const setFieldError = (fieldName) => {
-        if (formFields[fieldName]) {
-            formFields[fieldName].setAttribute('aria-invalid', 'true');
-        }
-    };
-
-    const showError = (message) => {
-        formStatus.textContent = message;
-        formStatus.className = 'form-status error';
-        formStatus.setAttribute('role', 'alert');
-    };
-
-    const showInfo = (message) => {
-        formStatus.textContent = message;
-        formStatus.className = 'form-status info';
-        formStatus.setAttribute('role', 'status');
-    };
-
-    const showSuccess = (message) => {
-        formStatus.textContent = message;
-        formStatus.className = 'form-status success';
-        formStatus.setAttribute('role', 'status');
-    };
-
-    const clearStatus = () => {
-        formStatus.textContent = '';
-        formStatus.className = 'form-status';
-        formStatus.setAttribute('role', 'status');
-    };
-
-    const isInCooldown = () => {
-        try {
-            const lastSubmit = localStorage.getItem('lastFormSubmit');
-            if (!lastSubmit) return false;
-            const timeSince = Date.now() - parseInt(lastSubmit, 10);
-            return timeSince < COOLDOWN_TIME;
-        } catch (err) {
-            return false;
-        }
-    };
-
-    const getRemainingCooldown = () => {
-        try {
-            const lastSubmit = localStorage.getItem('lastFormSubmit');
-            if (!lastSubmit) return 0;
-            const timeSince = Date.now() - parseInt(lastSubmit, 10);
-            return Math.ceil((COOLDOWN_TIME - timeSince) / 1000);
-        } catch (err) {
-            return 0;
-        }
-    };
-
-    // Check cooldown on page load
-    if (isInCooldown()) {
-        const remaining = getRemainingCooldown();
-        submitBtn.disabled = true;
-        showInfo(`Please wait ${remaining} seconds before submitting again.`);
-
-        setTimeout(() => {
-            submitBtn.disabled = false;
-            clearStatus();
-        }, remaining * 1000);
-    }
-
-    form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        clearFieldErrors();
-
-        if (isInCooldown()) {
-            const cooldownRemaining = getRemainingCooldown();
-            showError(`Please wait ${cooldownRemaining} seconds before submitting again.`);
-            return;
-        }
-
-        const timeSinceLoad = Date.now() - formLoadTime;
-        if (timeSinceLoad < MIN_SUBMIT_TIME) {
-            showError('Please take a moment to review your message.');
-            return;
-        }
-
-        const honeypot1 = form.querySelector('[name="_gotcha"]');
-        const honeypot2 = form.querySelector('[name="website"]');
-        if ((honeypot1 && honeypot1.value !== '') || (honeypot2 && honeypot2.value !== '')) {
-            return;
-        }
-
-        const message = form.querySelector('[name="message"]').value;
-
-        const urlPattern = /(https?:\/\/[^\s]+)/g;
-        const urlMatches = message.match(urlPattern);
-        if (urlMatches && urlMatches.length > MAX_URL_COUNT) {
-            setFieldError('message');
-            showError('Your message contains too many links. Please reduce the number of links.');
-            return;
-        }
-
-        if (message.trim().length < MIN_MESSAGE_LENGTH) {
-            setFieldError('message');
-            showError('Please provide a more detailed message.');
-            return;
-        }
-
-        submitBtn.disabled = true;
-        submitBtn.textContent = 'Sending...';
-        submitBtn.setAttribute('aria-busy', 'true');
-        showInfo('Sending your message...');
-
-        try {
-            if (typeof grecaptcha !== 'undefined' && window.RECAPTCHA_SITE_KEY) {
-                try {
-                    const token = await grecaptcha.execute(window.RECAPTCHA_SITE_KEY, {action: 'submit'});
-                    let recaptchaInput = form.querySelector('input[name="g-recaptcha-response"]');
-                    if (!recaptchaInput) {
-                        recaptchaInput = document.createElement('input');
-                        recaptchaInput.type = 'hidden';
-                        recaptchaInput.name = 'g-recaptcha-response';
-                        form.appendChild(recaptchaInput);
-                    }
-                    recaptchaInput.value = token;
-                } catch (err) {
-                    // reCAPTCHA not available
-                }
-            }
-
-            const response = await fetch(form.action, {
-                method: 'POST',
-                body: new FormData(form),
-                headers: {
-                    'Accept': 'application/json'
-                }
-            });
-
-            if (response.ok) {
-                // Start the cooldown only once the message has actually been sent
-                try {
-                    localStorage.setItem('lastFormSubmit', Date.now().toString());
-                } catch (err) {
-                    // localStorage not available
-                }
-
-                showSuccess('Thank you! Your message has been sent successfully.');
-                form.reset();
-                clearFieldErrors();
-                submitBtn.textContent = 'Message Sent';
-                submitBtn.removeAttribute('aria-busy');
-
-                setTimeout(() => {
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = 'Send Message';
-                    clearStatus();
-                }, COOLDOWN_TIME);
-            } else {
-                // Formspree returns errors as {"errors": [{"message": ...}, ...]}
-                const data = await response.json().catch(() => null);
-                const errorMessage = data && Array.isArray(data.errors)
-                    ? data.errors.map((item) => item.message).filter(Boolean).join(' ')
-                    : '';
-                showError(errorMessage || 'Oops! There was a problem sending your message. Please try again.');
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Send Message';
-                submitBtn.removeAttribute('aria-busy');
-            }
-        } catch (error) {
-            showError('Network error. Please check your connection and try again.');
-            submitBtn.disabled = false;
-            submitBtn.textContent = 'Send Message';
-            submitBtn.removeAttribute('aria-busy');
-        }
-    });
-})();
-</script>
+<script src="/main.js"></script>
+<script src="/contact-form.js"></script>
 </body>
 </html>

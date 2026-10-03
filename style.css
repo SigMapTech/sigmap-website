@@ -159,6 +159,9 @@
 html {
     scroll-behavior: smooth;
     color-scheme: dark;
+
+    /* Keep anchor targets clear of the fixed nav (about 3.8rem tall once scrolled) */
+    scroll-padding-top: 4.5rem;
 }
 
 *,
@@ -367,8 +370,15 @@ footer p a {
 .nav-toggle {
     display: none;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 5px;
-    padding: 6px;
+
+    /* 44px touch target; the negative margin keeps the bars where they sat with the old 6px padding */
+    width: 44px;
+    height: 44px;
+    margin-right: -5px;
+    padding: 0;
     background: none;
     border: none;
     cursor: pointer;
@@ -897,11 +907,11 @@ textarea:-webkit-autofill {
     border: 1px solid var(--color-info-border);
 }
 
-.noscript-warning {
+.noscript-note {
     padding: 1rem;
-    background: var(--color-error-bg);
-    color: var(--color-error);
-    border: 1px solid var(--color-error-border);
+    background: var(--color-info-bg);
+    color: var(--color-info);
+    border: 1px solid var(--color-info-border);
     border-radius: var(--radius-sm);
     margin-bottom: 1rem;
 }
@@ -950,8 +960,8 @@ footer {
     gap: 0.625rem;
 }
 
-.footer-nav h4,
-.footer-contact h4 {
+.footer-nav h2,
+.footer-contact h2 {
     font-family: 'DM Sans', sans-serif;
     font-size: 0.75rem;
     font-weight: 600;
@@ -1165,6 +1175,7 @@ footer {
     .hero {
         padding: 5rem 1.5rem 3rem;
         min-height: 90vh;
+        min-height: 90dvh;
     }
 
     .hero-lambda {
