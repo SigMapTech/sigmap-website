@@ -66,10 +66,13 @@
             <p class="section-label">2048 &mdash; Mobile Game</p>
             <h1 class="page-heading">Privacy Policy</h1>
             <div class="prose">
-                <p class="prose-meta"><strong>Last Updated:</strong> November 16th, 2025</p>
+                <p class="prose-meta"><strong>Last Updated:</strong> October 3rd, 2026</p>
                 <p><strong>2048</strong> ("the Game") is developed by SigMap OÜ. This Privacy Policy
                     explains how we collect, use, and protect your information when you use our game. Your privacy is important to us,
                     and we are committed to protecting it.</p>
+                <p>The data controller is <strong>SigMap OÜ</strong> (registry code 17111407), Idapõllu tee 3-21,
+                    74001 Haabneeme alevik, Viimsi vald, Harju maakond, Estonia, email
+                    <a href="mailto:info@sigmap.tech">info@sigmap.tech</a>.</p>
                 <h2>1. Information We Collect</h2>
                 <p>We may collect the following types of information to provide and improve the Game's functionality:</p>
                 <h3>a. Automatically Collected Information:</h3>
@@ -99,9 +102,11 @@
                             <li>Device information (model, operating system version)</li>
                             <li>App version and state at the time of crash</li>
                             <li>Stack traces and error logs</li>
-                            <li>Anonymous usage patterns that led to the crash</li>
+                            <li>The steps in the app that led to the crash</li>
+                            <li>Random installation identifiers (Crashlytics Installation UUID and Firebase installation ID)</li>
                         </ul>
-                        This data is anonymized and used solely to identify and fix bugs, improve app stability, and enhance performance.
+                        This data is pseudonymous: it is linked to the random installation identifiers above, not to your
+                        name, email, or account. It is used solely to identify and fix bugs, improve app stability, and enhance performance.
                     </li>
                 </ul>
                 <h3>d. Optional Data:</h3>
@@ -118,6 +123,20 @@
                 </ul>
                 <p>We do <strong>not</strong> sell, rent, or share your personal information with third parties for their marketing
                     purposes.</p>
+                <h3>Legal basis</h3>
+                <ul>
+                    <li><strong>Crash reports, integrity checks, and fraud prevention:</strong> our legitimate interest in
+                        keeping the Game stable and secure (GDPR Art. 6(1)(f)).</li>
+                    <li><strong>Gameplay features you use:</strong> providing the Game you chose to install (Art. 6(1)(b)).</li>
+                    <li><strong>Support requests:</strong> our legitimate interest in answering you (Art. 6(1)(f)).</li>
+                </ul>
+                <h3>How long we keep it</h3>
+                <ul>
+                    <li><strong>Crash reports:</strong> Firebase Crashlytics keeps crash data and the related installation
+                        identifiers for 90 days, then deletes them.</li>
+                    <li><strong>Gameplay data stored on your device:</strong> until you delete it or uninstall the Game.</li>
+                    <li><strong>Support emails:</strong> up to 2 years after our last contact.</li>
+                </ul>
                 <h2>3. Third-Party Services</h2>
                 <p>The Game may use the following third-party services:</p>
                 <ul>
@@ -125,6 +144,9 @@
                     <li><strong>Google Play Integrity API:</strong> To ensure the security and authenticity of the app.</li>
                     <li><strong>Firebase Crashlytics:</strong> To collect and analyze crash reports and app performance data to help us identify and fix issues.</li>
                 </ul>
+                <p>These services are provided by Google LLC, based in the United States, so data may be transferred outside
+                    the European Economic Area. Google participates in the EU&ndash;US Data Privacy Framework, which the
+                    European Commission recognises as providing adequate protection.</p>
                 <p>These services may collect information as per their privacy policies. For more details, please refer to their
                     respective policies:</p>
                 <ul>
@@ -141,14 +163,22 @@
                 <p>However, no method of transmission over the internet or electronic storage is 100% secure, and we cannot guarantee
                     absolute security.</p>
                 <h2>5. Your Rights</h2>
-                <p>You have the following rights regarding your information:</p>
+                <p>Under the GDPR you have the following rights regarding your information:</p>
                 <ul>
-                    <li><strong>Access and Update:</strong> You can access or request updates to the information we collect, where
-                        applicable.
-                    </li>
+                    <li><strong>Access:</strong> You can ask for a copy of the personal data we hold about you.</li>
+                    <li><strong>Correction:</strong> You can ask us to correct inaccurate data.</li>
+                    <li><strong>Deletion:</strong> You can ask us to delete your data.</li>
+                    <li><strong>Restriction and Objection:</strong> You can ask us to limit or stop using your data, including
+                        where we rely on legitimate interests.</li>
+                    <li><strong>Portability:</strong> You can ask for the data you gave us in a portable format.</li>
                     <li><strong>Opt-Out:</strong> You can uninstall the app to stop all data collection.</li>
                 </ul>
-                <p>For any requests related to your data, please contact us at info@sigmap.tech.</p>
+                <p>For any requests related to your data, please contact us at <a href="mailto:info@sigmap.tech">info@sigmap.tech</a>.
+                    We will reply within one month. Because crash data is pseudonymous, we may ask for details such as your
+                    device model and the approximate time of a crash to find it.</p>
+                <p>You can also lodge a complaint with the Estonian Data Protection Inspectorate (Andmekaitse Inspektsioon) at
+                    <a href="https://www.aki.ee/en" target="_blank" rel="noopener noreferrer">www.aki.ee</a>, or with the data
+                    protection authority in your own EU country.</p>
                 <h2>6. Children's Privacy</h2>
                 <p>The Game is not intended for children under the age of 13, and we do not knowingly collect personal information from
                     children. If we become aware that we have inadvertently collected information from a child under 13, we will delete
@@ -170,7 +200,7 @@
 <footer>
     <div class="container">
         <div class="footer-bottom">
-            <p>&copy; <span id="copyright-year">2026</span> SigMap OÜ. All rights reserved. | <a href="/">Back to Home</a></p>
+            <p>&copy; <span id="copyright-year">2026</span> SigMap OÜ &middot; Registry code 17111407 &middot; <a href="/privacy.html">Privacy</a> &middot; <a href="/">Back to Home</a></p>
         </div>
     </div>
 </footer>

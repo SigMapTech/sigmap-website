@@ -10,16 +10,16 @@
          If you enable reCAPTCHA, add https://www.google.com and https://www.gstatic.com to script-src
          and frame-src. -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; object-src 'none'; base-uri 'self'">
-    <title>SigMap OÜ - Software Solutions</title>
+    <title>SigMap OÜ - Clojure &amp; Functional Programming Consultancy</title>
 
     <!-- SEO Meta Tags -->
-    <meta name="description" content="SigMap OÜ - Estonian software development company specializing in functional programming, custom software development, and mobile & web applications.">
-    <meta name="keywords" content="software development, Estonia, functional programming, web development, mobile apps, custom software, SigMap">
+    <meta name="description" content="SigMap OÜ is an Estonian software company specializing in Clojure and functional programming: custom software, FP consultancy, and native iOS and Android apps.">
+    <meta name="keywords" content="Clojure, ClojureScript, functional programming, Haskell, software development, Estonia, iOS, Android, custom software, SigMap">
     <meta name="author" content="SigMap OÜ">
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="SigMap OÜ - Software Solutions">
-    <meta property="og:description" content="Your trusted partner in software innovation. Specializing in functional programming and high-quality software solutions.">
+    <meta property="og:title" content="SigMap OÜ - Clojure &amp; Functional Programming Consultancy">
+    <meta property="og:description" content="Clojure and functional programming consultancy from Estonia: custom software, architecture advice, and native iOS and Android apps.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://sigmap.tech/">
     <meta property="og:image" content="https://sigmap.tech/og-image.png">
@@ -29,8 +29,8 @@
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="SigMap OÜ - Software Solutions">
-    <meta name="twitter:description" content="Your trusted partner in software innovation. Specializing in functional programming and high-quality software solutions.">
+    <meta name="twitter:title" content="SigMap OÜ - Clojure &amp; Functional Programming Consultancy">
+    <meta name="twitter:description" content="Clojure and functional programming consultancy from Estonia: custom software, architecture advice, and native iOS and Android apps.">
     <meta name="twitter:image" content="https://sigmap.tech/og-image.png">
 
     <!-- Canonical URL -->
@@ -86,8 +86,17 @@
         "name": "SigMap OÜ",
         "url": "https://sigmap.tech",
         "logo": "https://sigmap.tech/apple-touch-icon.png",
-        "description": "Estonian software development company specializing in functional programming, custom software development, and mobile & web applications.",
+        "description": "Estonian software company specializing in Clojure and functional programming: custom software, FP consultancy, and native iOS and Android apps.",
         "email": "info@sigmap.tech",
+        "identifier": {
+            "@type": "PropertyValue",
+            "propertyID": "Estonian Business Register code",
+            "value": "17111407"
+        },
+        "founder": {
+            "@type": "Person",
+            "name": "Lauri Oherd"
+        },
         "address": {
             "@type": "PostalAddress",
             "streetAddress": "Idapõllu tee 3-21",
@@ -96,7 +105,7 @@
             "postalCode": "74001",
             "addressCountry": "EE"
         },
-        "foundingDate": "2025",
+        "foundingDate": "2024-11-11",
         "areaServed": {
             "@type": "Place",
             "name": "Worldwide"
@@ -104,6 +113,10 @@
         "knowsAbout": [
             "Software Development",
             "Functional Programming",
+            "Clojure",
+            "ClojureScript",
+            "Swift",
+            "Kotlin",
             "Web Development",
             "Mobile Development",
             "Custom Software Solutions"
@@ -121,6 +134,7 @@
             <a href="#about">About</a>
             <a href="#services">Services</a>
             <a href="#technologies">Technologies</a>
+            <a href="#products">Products</a>
             <a href="#contact">Contact</a>
         </div>
         <button type="button" class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
@@ -169,6 +183,12 @@
                     <p>From initial consultancy through development to long-term maintenance, we cover the full lifecycle.</p>
                 </div>
             </div>
+            <div class="founder reveal">
+                <h3>Founded by Lauri Oherd</h3>
+                <p>SigMap was founded in 2024 by Lauri Oherd, a software engineer whose main language is Clojure. He builds
+                    backend services, web front-ends, and native iOS and Android apps, and brings the same functional habits
+                    to all of them: immutable data, small composable functions, and fast feedback at the REPL.</p>
+            </div>
         </div>
     </section>
 
@@ -177,7 +197,7 @@
         <div class="container">
             <p class="section-label reveal">02 &mdash; Services</p>
             <h2 class="section-heading reveal">What We Do</h2>
-            <p class="section-subtitle reveal">We provide a wide range of software development services tailored to your needs.</p>
+            <p class="section-subtitle reveal">From an architecture review to a shipped app, with functional programming at the core.</p>
             <div class="services-grid">
                 <article class="service-card reveal">
                     <div class="service-icon" aria-hidden="true">&lt;/&gt;</div>
@@ -208,11 +228,11 @@
         <div class="container">
             <p class="section-label reveal">03 &mdash; Technologies</p>
             <h2 class="section-heading reveal">Our Stack</h2>
-            <p class="section-subtitle reveal">We work with languages designed for correctness, concurrency, and developer productivity.</p>
+            <p class="section-subtitle reveal">Functional languages for correctness and concurrency, native toolkits for mobile.</p>
             <div class="tech-grid reveal">
                 <div class="tech-item">
                     <span class="tech-name">Clojure</span>
-                    <span class="tech-desc">Dynamic functional, JVM-powered</span>
+                    <span class="tech-desc">Dynamic functional, on the JVM and in the browser (ClojureScript)</span>
                 </div>
                 <div class="tech-item">
                     <span class="tech-name">Haskell</span>
@@ -226,15 +246,45 @@
                     <span class="tech-name">Erlang</span>
                     <span class="tech-desc">Fault-tolerant distributed systems</span>
                 </div>
+                <div class="tech-item">
+                    <span class="tech-name">Swift</span>
+                    <span class="tech-desc">Native iOS apps with SwiftUI</span>
+                </div>
+                <div class="tech-item">
+                    <span class="tech-name">Kotlin</span>
+                    <span class="tech-desc">Native Android apps</span>
+                </div>
             </div>
-            <p class="tech-footnote reveal">Plus modern web, mobile, and cloud infrastructure technologies.</p>
+            <p class="tech-footnote reveal">Plus modern web and cloud infrastructure technologies.</p>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section id="products" class="section section-alt">
+        <div class="container">
+            <p class="section-label reveal">04 &mdash; Products</p>
+            <h2 class="section-heading reveal">What We've Shipped</h2>
+            <p class="section-subtitle reveal">We build our own products too, with the same practices we bring to client work.</p>
+            <article class="product-card reveal">
+                <div class="product-body">
+                    <p class="product-meta">iOS &amp; Android</p>
+                    <h3>Pull-Up Tracker</h3>
+                    <p>A simple, focused app for building a pull-up habit: set daily goals, see your progress, and keep your
+                        streak going. Includes home and lock screen widgets on iPhone and is available in 35 languages.</p>
+                </div>
+                <div class="product-links">
+                    <a href="https://pulluptracker.app" class="btn btn-ghost" target="_blank" rel="noopener noreferrer">Visit pulluptracker.app</a>
+                    <a href="https://apps.apple.com/app/pull-up-tracker/id6758887554" class="product-store" target="_blank" rel="noopener noreferrer">App Store</a>
+                    <a href="https://play.google.com/store/apps/details?id=tech.sigmap.pulluptracker" class="product-store" target="_blank" rel="noopener noreferrer">Google Play</a>
+                </div>
+            </article>
         </div>
     </section>
 
     <!-- Contact -->
-    <section id="contact" class="section section-alt">
+    <section id="contact" class="section">
         <div class="container">
-            <p class="section-label reveal">04 &mdash; Contact</p>
+            <p class="section-label reveal">05 &mdash; Contact</p>
             <h2 class="section-heading reveal">Get in Touch</h2>
             <p class="section-subtitle reveal">Have a project in mind or need functional programming expertise? We'd love to hear from you.</p>
 
@@ -251,6 +301,10 @@
                         74001 Haabneeme alevik<br>
                         Viimsi vald, Harju maakond<br>
                         Estonia</p>
+                    </div>
+                    <div class="contact-detail">
+                        <h3>Registry Code</h3>
+                        <p>17111407</p>
                     </div>
                 </div>
 
@@ -288,6 +342,8 @@
                         <!-- Honeypot - hidden from real users; Formspree discards submissions that fill it -->
                         <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
 
+                        <p class="form-privacy">We use your details only to reply to you. See our <a href="/privacy.html">privacy notice</a>.</p>
+
                         <button type="submit" id="submit-btn" class="submit-btn">Send Message</button>
                         <div id="form-status" class="form-status" role="status" aria-live="polite"></div>
                     </form>
@@ -309,16 +365,18 @@
                 <a href="#about">About</a>
                 <a href="#services">Services</a>
                 <a href="#technologies">Technologies</a>
+                <a href="#products">Products</a>
                 <a href="#contact">Contact</a>
             </nav>
             <div class="footer-contact">
                 <h2>Contact</h2>
                 <a href="mailto:info@sigmap.tech">info@sigmap.tech</a>
                 <p>Haabneeme, Estonia</p>
+                <p>Registry code 17111407</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; <span id="copyright-year">2026</span> SigMap OÜ. All rights reserved.</p>
+            <p>&copy; <span id="copyright-year">2026</span> SigMap OÜ. All rights reserved. &middot; <a href="/privacy.html">Privacy</a></p>
         </div>
     </div>
 </footer>

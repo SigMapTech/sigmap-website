@@ -93,6 +93,7 @@ jobs:
         run: |
           echo "Running accessibility tests..."
           axe http://localhost:8080/index.html --exit --tags wcag2a,wcag2aa,wcag21a,wcag21aa
+          axe http://localhost:8080/privacy.html --exit --tags wcag2a,wcag2aa,wcag21a,wcag21aa
           axe http://localhost:8080/2048/privacy-policy.html --exit --tags wcag2a,wcag2aa,wcag21a,wcag21aa
           axe http://localhost:8080/404.html --exit --tags wcag2a,wcag2aa,wcag21a,wcag21aa
 
@@ -131,6 +132,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Absolute https://sigmap.tech URLs (canonical, og:url, og:image) are excluded: they hit the
+      # live site, where a page added in a PR does not exist yet. Internal links are relative and
+      # are checked against the checkout via --root-dir.
       - name: Check for broken links
         uses: lycheeverse/lychee-action@v2
         with:
@@ -144,6 +148,7 @@ jobs:
             --exclude "127.0.0.1"
             --exclude "formspree.io"
             --exclude "apps.apple.com"
+            --exclude "^https://sigmap\.tech"
             --accept "200,204,206,301,302,304,307,308"
             --timeout 30
             --retry-wait-time 5
