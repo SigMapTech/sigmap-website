@@ -29,6 +29,7 @@ sigmap-website/
 ├── style.css                  # Global stylesheet
 ├── main.js                    # Shared JS (copyright year, nav menu, scroll reveal)
 ├── contact-form.js            # Contact form validation and submission
+├── privacy.html               # Website privacy notice
 ├── 2048/
 │   └── privacy-policy.html    # Privacy policy for 2048 game
 ├── .github/
@@ -178,6 +179,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Contact
 
 **SigMap OÜ**
+- Registry code: 17111407
 - Email: info@sigmap.tech
 - Address: Idapõllu tee 3-21, 74001, Haabneeme alevik, Viimsi vald, Harju maakond, Estonia
 

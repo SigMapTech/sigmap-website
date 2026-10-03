@@ -93,6 +93,7 @@ jobs:
         run: |
           echo "Running accessibility tests..."
           axe http://localhost:8080/index.html --exit --tags wcag2a,wcag2aa,wcag21a,wcag21aa
+          axe http://localhost:8080/privacy.html --exit --tags wcag2a,wcag2aa,wcag21a,wcag21aa
           axe http://localhost:8080/2048/privacy-policy.html --exit --tags wcag2a,wcag2aa,wcag21a,wcag21aa
           axe http://localhost:8080/404.html --exit --tags wcag2a,wcag2aa,wcag21a,wcag21aa
 

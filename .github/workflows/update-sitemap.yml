@@ -36,6 +36,12 @@ jobs:
             echo "Updated main page lastmod to ${TODAY}"
           fi
 
+          # Update website privacy notice lastmod if it changed
+          if echo "$CHANGED_FILES" | grep -qx 'privacy\.html'; then
+            sed -i "/<loc>https:\/\/sigmap\.tech\/privacy\.html<\/loc>/,/<\/url>/ s|<lastmod>[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}</lastmod>|<lastmod>${TODAY}</lastmod>|" sitemap.xml
+            echo "Updated privacy notice lastmod to ${TODAY}"
+          fi
+
           # Update 2048 privacy policy lastmod if its files changed
           if echo "$CHANGED_FILES" | grep -q '^2048/'; then
             sed -i "/<loc>https:\/\/sigmap\.tech\/2048\/privacy-policy\.html<\/loc>/,/<\/url>/ s|<lastmod>[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}</lastmod>|<lastmod>${TODAY}</lastmod>|" sitemap.xml

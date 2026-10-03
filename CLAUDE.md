@@ -24,6 +24,7 @@ Design:         Dark theme, emerald accent, lambda calculus aesthetic
 sigmap-website/
 ├── index.html                 # Main landing page (company info, services, contact form)
 ├── 404.html                   # Branded not-found page (served automatically by GitHub Pages)
+├── privacy.html               # Website privacy notice (contact form, hosting, GDPR rights)
 ├── style.css                  # Global stylesheet (mobile-first, responsive)
 ├── main.js                    # Shared JS for all pages (copyright year, nav menu, scroll reveal)
 ├── contact-form.js            # Contact form validation, spam checks, Formspree submission
@@ -223,9 +224,13 @@ Edit the relevant sections in `index.html`:
 2. Update JavaScript validation if needed
 3. Configure Formspree to handle new fields if necessary
 
-### Update Privacy Policy
+### Update Privacy Policies
 
-Edit `/2048/privacy-policy.html`:
+`/privacy.html` covers the website itself (contact form via Formspree, GitHub Pages hosting). Update it whenever
+a new third-party service, form field, cookie, or analytics tool is added, and keep its "Last Updated" date current.
+Contact-form messages are kept for 2 years after the last contact.
+
+Edit `/2048/privacy-policy.html` for the game:
 - Update the "Last Updated" date
 - Maintain consistent styling with main site
 - Keep GDPR compliance information accurate
@@ -256,6 +261,8 @@ Edit `/2048/privacy-policy.html`:
 ## Company Information
 
 **SigMap OÜ**
+- Registry code: 17111407 (not VAT-registered, so no VAT number)
+- Founded: 2024-11-11
 - Email: info@sigmap.tech
 - Address: Idapõllu tee 3-21, 74001, Haabneeme alevik, Viimsi vald, Harju maakond, Estonia
 - Country: Estonia
