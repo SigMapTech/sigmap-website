@@ -25,6 +25,8 @@ sigmap-website/
 ├── index.html                 # Main landing page (company info, services, contact form)
 ├── 404.html                   # Branded not-found page (served automatically by GitHub Pages)
 ├── style.css                  # Global stylesheet (mobile-first, responsive)
+├── main.js                    # Shared JS for all pages (copyright year, nav menu, scroll reveal)
+├── contact-form.js            # Contact form validation, spam checks, Formspree submission
 ├── 2048/
 │   └── privacy-policy.html    # Privacy policy for 2048 mobile game
 ├── .github/
@@ -116,6 +118,7 @@ git push origin main
 ### JavaScript Standards
 
 - **Pattern:** IIFE (Immediately Invoked Function Expression) for encapsulation
+- **No inline scripts:** All JS lives in `main.js` / `contact-form.js` so the CSP can omit `'unsafe-inline'` from `script-src`
 - **Error Handling:** Wrap localStorage and network operations in try-catch
 - **Form Validation:** Client-side validation before submission
 - **No External Dependencies:** Keep it vanilla JS
@@ -124,7 +127,7 @@ git push origin main
 
 The contact form (`index.html`) uses multiple spam protection layers:
 
-1. **Honeypot Fields:** Hidden `_gotcha` and `website` fields (bots fill these)
+1. **Honeypot Field:** Hidden `_gotcha` field, checked server-side by Formspree (no client-side check, so a real visitor whose autofill touches it is never silently dropped)
 2. **Time-Based Validation:** Minimum 3-second wait before submission allowed
 3. **Rate Limiting:** 60-second cooldown via localStorage
 4. **Link Detection:** Rejects messages with >3 URLs
@@ -137,7 +140,7 @@ Backend: Formspree handles form submissions (POST to `https://formspree.io/f/mov
 
 ### Dynamic Copyright Year
 
-The footer copyright year is automatically set via JavaScript - no manual updates needed:
+The footer copyright year is automatically set via JavaScript in `main.js` - no manual updates needed:
 
 ```javascript
 document.getElementById('copyright-year').textContent = new Date().getFullYear();

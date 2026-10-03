@@ -27,6 +27,8 @@ This is a static website hosted on GitHub Pages, serving as the corporate homepa
 sigmap-website/
 ├── index.html                 # Main company homepage
 ├── style.css                  # Global stylesheet
+├── main.js                    # Shared JS (copyright year, nav menu, scroll reveal)
+├── contact-form.js            # Contact form validation and submission
 ├── 2048/
 │   └── privacy-policy.html    # Privacy policy for 2048 game
 ├── .github/
@@ -56,7 +58,7 @@ sigmap-website/
 - ✅ Accessibility-friendly with ARIA labels, semantic HTML, and WCAG AA color contrast
 - ✅ Smooth scrolling navigation with reduced-motion support
 - ✅ Lightweight static site (only external dependency: Formspree)
-- ✅ Spam-protected contact form (honeypots, rate limiting, time-based checks)
+- ✅ Spam-protected contact form (honeypot, rate limiting, time-based checks)
 - ✅ Privacy policy for 2048 game product
 - ✅ Automated quality checks via GitHub Actions
 
