@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Content Security Policy (GitHub Pages cannot send response headers, so it lives in a meta tag).
-         Scripts live in main.js and contact-form.js, so script-src needs no 'unsafe-inline' (the JSON-LD
-         block is data, not script). style-src keeps 'unsafe-inline' for the <noscript> style below.
+         Scripts live in main.js and contact-form.js and styles in style.css and noscript.css, so neither
+         script-src nor style-src needs 'unsafe-inline' (the JSON-LD block is data, not script).
          connect-src and form-action cover the Formspree submission (fetch with JS, plain POST without).
          If you enable reCAPTCHA, add https://www.google.com and https://www.gstatic.com to script-src
          and frame-src. -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; object-src 'none'; base-uri 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io; object-src 'none'; base-uri 'self'">
     <title>SigMap OÜ - Clojure &amp; Functional Programming Consultancy</title>
 
     <!-- SEO Meta Tags -->
@@ -55,15 +55,8 @@
     <!-- Stylesheet -->
     <link rel="stylesheet" href="style.css">
 
-    <!-- Scroll-reveal fallback: without JavaScript the .reveal elements would stay at opacity 0 -->
-    <noscript>
-        <style>
-            .reveal {
-                opacity: 1;
-                transform: none;
-            }
-        </style>
-    </noscript>
+    <!-- No-JavaScript fallbacks (reveal animations, mobile menu) -->
+    <noscript><link rel="stylesheet" href="/noscript.css"></noscript>
 
     <!-- Google reCAPTCHA v3 -->
     <!-- To enable reCAPTCHA protection:
@@ -165,20 +158,20 @@
         <div class="container">
             <p class="section-label reveal">01 &mdash; About</p>
             <h2 class="section-heading reveal">About SigMap OÜ</h2>
-            <p class="lead reveal">SigMap OÜ is a software development company based in Estonia. We specialize in functional programming, high-quality software solutions, and innovative technology. Our mission is to empower businesses with robust and efficient digital tools.</p>
+            <p class="lead reveal">SigMap OÜ is a small software company in Estonia built around functional programming. We design, build, and maintain software for clients and ship apps of our own, with the same approach throughout: simple data, small composable parts, and code that stays easy to change.</p>
             <div class="values-row reveal">
                 <div class="value-item">
-                    <span class="value-accent">&lambda;</span>
+                    <span class="value-accent" aria-hidden="true">&lambda;</span>
                     <h3>Functional First</h3>
                     <p>We leverage functional programming to build software that is predictable, testable, and correct by construction.</p>
                 </div>
                 <div class="value-item">
-                    <span class="value-accent">&oplus;</span>
+                    <span class="value-accent" aria-hidden="true">&oplus;</span>
                     <h3>Composable</h3>
                     <p>Our solutions are built from small, well-defined modules that compose seamlessly into larger systems.</p>
                 </div>
                 <div class="value-item">
-                    <span class="value-accent">&forall;</span>
+                    <span class="value-accent" aria-hidden="true">&forall;</span>
                     <h3>End-to-End</h3>
                     <p>From initial consultancy through development to long-term maintenance, we cover the full lifecycle.</p>
                 </div>
@@ -217,7 +210,7 @@
                 <article class="service-card reveal">
                     <div class="service-icon" aria-hidden="true">&infin;</div>
                     <h3>Technical Support &amp; Maintenance</h3>
-                    <p>Ongoing support to keep your systems running smoothly, including monitoring, updates, performance optimization, and incident response.</p>
+                    <p>Ongoing support to keep your systems running smoothly, including monitoring, updates, and performance optimization.</p>
                 </article>
             </div>
         </div>

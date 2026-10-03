@@ -28,6 +28,10 @@ sigmap-website/
 ├── style.css                  # Global stylesheet (mobile-first, responsive)
 ├── main.js                    # Shared JS for all pages (copyright year, nav menu, scroll reveal)
 ├── contact-form.js            # Contact form validation, spam checks, Formspree submission
+├── noscript.css               # No-JS fallbacks (reveal, mobile nav), loaded via <noscript><link>
+├── .well-known/
+│   └── security.txt           # Security contact (RFC 9116); renew `Expires` before 2027-10-03
+├── .nojekyll                  # Disables Jekyll so .well-known/ is published and .md files aren't rendered
 ├── 2048/
 │   └── privacy-policy.html    # Privacy policy for 2048 mobile game
 ├── .github/
@@ -119,7 +123,7 @@ git push origin main
 ### JavaScript Standards
 
 - **Pattern:** IIFE (Immediately Invoked Function Expression) for encapsulation
-- **No inline scripts:** All JS lives in `main.js` / `contact-form.js` so the CSP can omit `'unsafe-inline'` from `script-src`
+- **No inline scripts or styles:** All JS lives in `main.js` / `contact-form.js` and all CSS in `style.css` / `noscript.css`, so the CSP omits `'unsafe-inline'` from both `script-src` and `style-src` (no `<style>` blocks or `style=""` attributes)
 - **Error Handling:** Wrap localStorage and network operations in try-catch
 - **Form Validation:** Client-side validation before submission
 - **No External Dependencies:** Keep it vanilla JS

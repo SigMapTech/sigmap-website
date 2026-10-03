@@ -29,6 +29,8 @@ sigmap-website/
 ├── style.css                  # Global stylesheet
 ├── main.js                    # Shared JS (copyright year, nav menu, scroll reveal)
 ├── contact-form.js            # Contact form validation and submission
+├── noscript.css               # No-JavaScript fallbacks
+├── .well-known/security.txt   # Security contact (renew Expires yearly)
 ├── privacy.html               # Website privacy notice
 ├── 2048/
 │   └── privacy-policy.html    # Privacy policy for 2048 game
