@@ -29,12 +29,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install html-validate
         run: npm install -g html-validate
@@ -49,12 +49,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install stylelint
         run: npm install -g stylelint stylelint-config-standard
@@ -69,12 +69,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install dependencies
         run: |
@@ -102,12 +102,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v7
         with:
-          node-version: '20'
+          node-version: '24'
 
       - name: Install Lighthouse CI
         run: npm install -g @lhci/cli http-server
@@ -118,11 +118,13 @@ jobs:
           lhci autorun
 
       - name: Upload Lighthouse results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: lighthouse-results
           path: .lighthouseci/
+          # upload-artifact skips dot-directories unless told otherwise
+          include-hidden-files: true
           retention-days: 30
 
   link-checker:
@@ -130,7 +132,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       # Absolute https://sigmap.tech URLs (canonical, og:url, og:image) are excluded: they hit the
       # live site, where a page added in a PR does not exist yet. Internal links are relative and
@@ -157,7 +159,7 @@ jobs:
           fail: true
 
       - name: Upload link check results
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         if: always()
         with:
           name: link-check-results

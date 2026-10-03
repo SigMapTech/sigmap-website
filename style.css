@@ -1343,3 +1343,28 @@ footer {
         padding: 1.5rem;
     }
 }
+
+/* ---- Print ---- */
+
+@media print {
+    /* Sections that were never scrolled into view would otherwise print blank */
+    .reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .site-nav {
+        position: static;
+    }
+
+    .nav-toggle,
+    .hero-grid,
+    .hero-lambda {
+        display: none;
+    }
+
+    .hero {
+        min-height: auto;
+    }
+}

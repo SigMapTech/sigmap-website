@@ -1,0 +1,57 @@
+/* ========================================================================
+   No-JavaScript fallbacks, loaded via <noscript><link></noscript> on every page.
+   Kept in a file (not an inline <style>) so the CSP needs no 'unsafe-inline'.
+   ======================================================================== */
+
+/* Scroll-reveal: without JavaScript the .reveal elements would stay at opacity 0 */
+.reveal {
+    opacity: 1;
+    transform: none;
+}
+
+/* Mobile navigation: the menu toggle needs JavaScript, so show the links inline
+   and put the nav in the normal flow above the page instead of fixed over it */
+@media (max-width: 768px) {
+    .site-nav {
+        position: static;
+        background: var(--bg-deep);
+        border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+        flex-wrap: wrap;
+        gap: 0.5rem 1.5rem;
+    }
+
+    .nav-toggle {
+        display: none;
+    }
+
+    .nav-links {
+        display: flex;
+        position: static;
+        flex-flow: row wrap;
+        gap: 0.25rem 1.25rem;
+        padding: 0;
+        background: none;
+        border: 0;
+        backdrop-filter: none;
+        /* stylelint-disable-next-line property-no-vendor-prefix */
+        -webkit-backdrop-filter: none;
+    }
+
+    .nav-links a {
+        padding: 0.25rem 0;
+        font-size: 0.9375rem;
+        border-bottom: 0;
+    }
+
+    /* The nav no longer overlaps the top of the page, so drop the room reserved for it */
+    .hero {
+        padding-top: 2.5rem;
+    }
+
+    .page-section {
+        padding-top: var(--section-pad);
+    }
+}
